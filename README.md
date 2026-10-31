@@ -18,18 +18,6 @@
 
 ![preview2](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview2.jpg)
 
-![preview3](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview3.jpg)
-
-![preview4](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview4.jpg)
-
-![preview5](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview5.jpg)
-
-![preview6](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview6.jpg)
-
-![preview7](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview7.jpg)
-
-![preview8](https://raw.githubusercontent.com/iqonli/MusicCard/main/preview8.jpg)
-
 ## 介绍
 
 MusicCardX 是 [MusicCard](https://github.com/iqonli/MusicCard) 的 Flutter 移植版，在 Android 上独立运行。原版的封面、背景、阴影、文字、歌词、颜色、字间距、输出倍率和样式配置均已移植，同时加入音频信息读取、在线搜索、字体管理、更多封面形状和 Android 分享接收等功能。
