@@ -1,0 +1,6 @@
+qq candidates=12
+qq {"title":"晴天","artist":"周杰伦","album":"叶惠美","date":"2003-07-31","discnumber":"1","tracknumber":"3"} 
+163 candidates=12
+appleweb candidates=12
+163 {"title":"晴天","artist":"Jay","album":"晴天","discnumber":"1","tracknumber":"1","date":"2026-09-24","totaltracks":"1"} 
+appleweb {"title":"晴天","artist":"周杰伦","album":"叶惠美","date":"2003-07-31","discnumber":"1","tracknumber":"3","totaltracks":"11"} 

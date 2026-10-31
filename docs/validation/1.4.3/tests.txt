@@ -1,0 +1,121 @@
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_http_test.dart: HttpClient handles JSON, form posts, bounded streams, errors and cancellation
+00:00 +1: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_http_test.dart: HttpClient handles JSON, form posts, bounded streams, errors and cancellation
+00:00 +2: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_http_test.dart: HttpClient handles JSON, form posts, bounded streams, errors and cancellation
+00:00 +3: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: match scoring penalizes versions and preserves manual candidates
+00:00 +4: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: match scoring penalizes versions and preserves manual candidates
+00:00 +5: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: source completion is incremental; album duplicates collapse
+00:00 +6: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: all configuration defaults roundtrip and new preferences are validated
+00:00 +7: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: a failed source leaves successful results available
+00:00 +8: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: cover loader reuses previews, supports zero, and clamps oversize responses
+00:00 +9: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: (setUpAll)
+00:00 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: (setUpAll)
+00:00 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+dynamic_color: Dynamic color not detected on this device.
+00:02 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +12: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:02 +13: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:03 +14: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:03 +15: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:03 +16: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:03 +17: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:03 +18: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:03 +19: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:04 +20: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:04 +21: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:04 +22: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:04 +23: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:04 +24: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:04 +25: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:05 +26: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:05 +27: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:05 +28: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +29: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:06 +30: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:06 +31: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:06 +32: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:07 +33: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +34: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +35: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +36: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +37: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +38: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +39: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +40: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +41: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +42: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +43: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:07 +44: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+dynamic_color: Dynamic color not detected on this device.
+00:08 +45: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:08 +46: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:08 +47: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:08 +48: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:08 +49: /workspace/scratch/b362c1002b27/MusicCardX/test/song_search_test.dart: title and artist required; partial provider failure retains candidates and bold comparisons
+00:09 +50: /workspace/scratch/b362c1002b27/MusicCardX/test/song_search_test.dart: title and artist required; partial provider failure retains candidates and bold comparisons
+00:09 +51: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:09 +52: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:09 +53: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:09 +54: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:10 +55: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:10 +56: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:10 +57: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:10 +58: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:10 +59: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:10 +60: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+dynamic_color: Dynamic color not detected on this device.
+00:10 +61: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:11 +62: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:11 +63: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:11 +64: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:12 +65: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:12 +66: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:12 +67: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:13 +68: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+dynamic_color: Dynamic color not detected on this device.
+00:13 +69: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +70: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +71: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +72: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +73: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +74: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +75: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +76: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +77: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +78: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +79: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +80: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +81: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:13 +81: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+dynamic_color: Dynamic color not detected on this device.
+00:14 +82: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:14 +83: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:14 +84: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: export icons, theme-backed panels, and redesigned About
+00:15 +85: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: export icons, theme-backed panels, and redesigned About
+00:15 +85: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+dynamic_color: Dynamic color not detected on this device.
+00:15 +86: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:16 +87: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:16 +88: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:16 +89: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +90: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +91: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +92: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +93: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +94: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +95: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +96: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +97: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +98: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:16 +99: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:16 +100: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:16 +101: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:17 +102: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:17 +103: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:18 +104: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:18 +105: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: font preview changes actual weight, uses black on white and persists sample
+00:18 +106: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: crop position dialog slider and number stay in sync
+00:19 +107: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: filename dialog previews editing without saving on cancel
+00:20 +108: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: (tearDownAll)
+00:20 +108: All tests passed!

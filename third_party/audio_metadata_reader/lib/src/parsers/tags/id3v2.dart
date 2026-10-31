@@ -1,0 +1,680 @@
+// Protocol section: ID3v2 tag and frame headers
+//
+// Tag header (10 bytes):
+//   49 44 33 VV RR FF SS SS SS SS
+// Meaning:
+// - `49 44 33`: ASCII `ID3` marker.
+// - `VV`: major version. Version 2.3 uses big-endian frame sizes; version 2.4
+//   uses 28-bit sync-safe frame sizes.
+// - `RR`: revision number.
+// - `FF`: tag flags. The parser currently consumes the extended header when
+//   the extended-header flag is set and otherwise treats unsupported flags as
+//   non-fatal.
+// - `SS`: tag payload size, four 7-bit bytes in big-endian sync-safe order;
+//   the header itself is not included.
+//
+// Frame header (10 bytes):
+//   II II II II LL LL LL LL FF FF
+// Meaning:
+// - `II`: four-character frame identifier.
+// - `LL`: frame payload size. It is big-endian for ID3v2.3 and sync-safe for
+//   ID3v2.4; the 10-byte frame header is not included.
+// - `FF`: two frame flags, preserved while identifying the frame but not
+//   interpreted by this parser.
+//
+// Constraints and recovery:
+// - A frame with an all-zero header terminates the frame list (padding).
+// - Known frames are decoded according to their ID3 payload format.
+// - Unknown frames are consumed completely and retained in `customMetadata`:
+//   unknown text frames are decoded using their encoding byte, while other
+//   payloads use a one-byte Latin-1 mapping so their bytes are not discarded.
+// - Malformed or truncated data is handled by the existing buffer/parser
+//   error path; the parser never leaves the cursor inside a frame payload.
+
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:audio_metadata_reader/src/constants/id3_genres.dart';
+import 'package:audio_metadata_reader/src/metadata/base.dart';
+import 'package:audio_metadata_reader/src/utils/bit_manipulator.dart';
+import 'package:audio_metadata_reader/src/utils/buffer.dart';
+import 'package:charset/charset.dart';
+
+import 'tag_parser.dart';
+
+const utf8Decoder = Utf8Decoder();
+const utf16Decoder = Utf16Decoder();
+const latin1Decoder = Latin1Decoder();
+
+class ID3v3Frame {
+  final String id;
+  final int size;
+  final Uint8List flags;
+
+  ID3v3Frame(this.id, this.size, this.flags);
+}
+
+///
+/// Metadata frame defined in the ID3 tag
+///
+String getTextFromFrame(Uint8List information) {
+  final encoding = information.first;
+
+  switch (encoding) {
+    case 0:
+      final nullCharacterPosition = information.indexOf(0, 1);
+      return latin1Decoder.convert(
+        information,
+        1,
+        (nullCharacterPosition >= 0)
+            ? nullCharacterPosition
+            : information.length,
+      );
+
+    case 1:
+      int nullCharacterPosition = -1;
+      for (int i = 1; i + 1 < information.length; i += 2) {
+        if (information[i] == 0 && information[i + 1] == 0) {
+          nullCharacterPosition = i;
+          break;
+        }
+      }
+      return utf16Decoder.decodeUtf16Le(
+        information.sublist(
+          1,
+          (nullCharacterPosition >= 0)
+              ? nullCharacterPosition
+              : information.length,
+        ),
+      );
+
+    case 2:
+      int nullCharacterPosition = 1;
+      while (nullCharacterPosition < information.length) {
+        if (information[nullCharacterPosition] == 0) {
+          if (information[nullCharacterPosition + 1] == 0) break;
+        }
+        nullCharacterPosition++;
+      }
+      return utf16Decoder.decodeUtf16Le(
+        information.sublist(1, nullCharacterPosition),
+      );
+
+    case 3:
+      final nullCharacterPosition = information.indexOf(0, 1);
+      return utf8Decoder.convert(
+        information,
+        1,
+        (nullCharacterPosition >= 0)
+            ? nullCharacterPosition
+            : information.length,
+      );
+  }
+
+  return "";
+}
+
+/// Custom metadata frame
+/// Can be used my MusicBrainz for instance
+class TXXXFrame {
+  late final int encoding;
+  late final String description;
+  late final String information;
+
+  TXXXFrame(Uint8List information) {
+    int offset = 0;
+    encoding = information[offset++];
+
+    final descriptionData = <int>[];
+    bool isUTF16 = encoding == 1 || encoding == 2;
+
+    if (isUTF16) {
+      while (!(information[offset] == 0 && information[offset + 1] == 0)) {
+        descriptionData.add(information[offset]);
+        descriptionData.add(information[offset + 1]);
+        offset += 2;
+      }
+
+      // we pass the final zeros
+      while (information[offset] == 0) {
+        offset++;
+      }
+    } else {
+      while (information[offset] != 0) {
+        descriptionData.add(information[offset++]);
+      }
+    }
+
+    int lastCharPosition = information.length - 1;
+
+    // can be 00 for utf16 or 0 for other
+    bool hasTerminalEmptyCharacter = information[lastCharPosition] == 0 &&
+        information[lastCharPosition - 1] == 0;
+
+    // we need to remove the empty character at the end
+    // it's a single or double zero
+    final length = information.length -
+        offset -
+        (hasTerminalEmptyCharacter
+            ? isUTF16
+                ? 2
+                : 1
+            : 0);
+    final rest = information.buffer.asUint8List(offset, length);
+
+    switch (encoding) {
+      case 0:
+        description = latin1Decoder.convert(descriptionData);
+
+        this.information = latin1Decoder.convert(rest);
+        break;
+      case 1:
+        description = utf16Decoder.decodeUtf16Le(descriptionData);
+
+        this.information = utf16Decoder.decodeUtf16Le(rest);
+        break;
+      case 2:
+        description = utf16Decoder.decodeUtf16Be(descriptionData);
+
+        this.information = utf16Decoder.decodeUtf16Be(rest);
+        break;
+      case 3:
+        description = utf8Decoder.convert(descriptionData);
+
+        this.information = utf8Decoder.convert(rest);
+        break;
+    }
+  }
+}
+
+///
+/// Parser for the ID3 tags
+///
+///
+/// https://teslabs.com/openplayer/docs/docs/specs/id3v2.3.0%20-%20ID3.org.pdf
+///
+class ID3v2Parser extends TagParser<Mp3Metadata> {
+  final Mp3Metadata metadata = Mp3Metadata();
+  late final Buffer buffer;
+
+  static final _discRegex = RegExp(r"^(\d+)\s*/\s*(\d+)$");
+  static final _trackRegex = RegExp(r"^(\d+)\s*/\s*(\d+)$");
+
+  ID3v2Parser({bool fetchImage = false}) : super(fetchImage: fetchImage);
+
+  @override
+  Mp3Metadata parse(RandomAccessFile reader) {
+    buffer = Buffer(randomAccessFile: reader);
+
+    final headerBytes = buffer.read(10);
+    final majorVersion = headerBytes[3];
+
+    if (majorVersion == 1) {
+      return metadata;
+    }
+
+    final Uint8List sizeBytes = headerBytes.sublist(6);
+
+    // size of the ID3 tag minus id3 header size
+    int size = (sizeBytes[3] & 0x7F) |
+        ((sizeBytes[2] & 0x7F) << 7) |
+        ((sizeBytes[1] & 0x7F) << 14) |
+        ((sizeBytes[0] & 0x7F) << 21);
+
+    int offset = 10;
+
+    // extended header
+    // useless
+    //
+    // > The extended header contains information
+    // > that is not vital to the correct
+    // > parsing of the tag information
+    if (getBit(headerBytes[5], 6) == 1) {
+      final extendedHeaderSize = getUint32(buffer.read(4));
+      buffer.skip(extendedHeaderSize - 4);
+    }
+
+    final frameHeaderSize = majorVersion == 2 ? 6 : 10;
+    while (offset + frameHeaderSize <= size + 10) {
+      final frame =
+          getFrame(reader, isV4: majorVersion == 4, isV2: majorVersion == 2);
+
+      if (frame == null) {
+        break;
+      }
+
+      // 10 -> frame header
+      offset = offset + frameHeaderSize + frame.size;
+      if (offset > size + 10) break;
+      processFrame(frame.id, frame.size);
+    }
+
+    return metadata;
+  }
+
+  /// Process a frame.
+  ///
+  /// Unknown frames are retained because ID3 allows application-specific and
+  /// newer frame identifiers that this parser does not know yet.
+  ///
+  /// Text information frames carry an encoding byte as their first payload
+  /// byte. Other frame families (for example `PRIV` and `WXXX`) do not, so
+  /// treating every unknown frame as an encoded text frame would corrupt their
+  /// value or throw while parsing. Latin-1 maps each byte to one Dart code unit
+  /// and therefore gives callers a lossless string representation for those
+  /// non-text payloads within the existing `Map<String, String>` API.
+  String _getUnknownFrameValue(String frameId, Uint8List content) {
+    if (content.isEmpty) {
+      return "";
+    }
+
+    if (frameId.startsWith("T") && content.first <= 3) {
+      return getTextFromFrame(content);
+    }
+
+    return latin1Decoder.convert(content);
+  }
+
+  /// Decode an unknown ID3 frame payload.
+  ///
+  /// If the frame ID is not defined in the ID3 specification, its complete
+  /// payload is preserved in `customMetadata` under the frame ID.
+  void processFrame(String frameId, int size) {
+    // why do we duplicate the content in every block?
+    // it's because the biggest thing to get in the cover
+    // sometimes, we don't want to read so we have to read the content
+    // at the very last time
+
+    final handlers = switch (frameId) {
+      "APIC" => () {
+          if (fetchImage) {
+            final content = buffer.read(size);
+            final picture = getPicture(content);
+            metadata.pictures.add(picture);
+          } else {
+            buffer.skip(size);
+          }
+        },
+      "TALB" => () {
+          final content = buffer.read(size);
+          metadata.album = getTextFromFrame(content);
+        },
+      "TBPM" => () {
+          final content = buffer.read(size);
+          metadata.bpm = getTextFromFrame(content);
+        },
+      "TCOP" => () {
+          final content = buffer.read(size);
+          metadata.copyrightMessage = getTextFromFrame(content);
+        },
+      "TCON" => () {
+          final content = buffer.read(size);
+          metadata.contentType = getTextFromFrame(content);
+          final regex = RegExp(r"(\d+).*");
+          final containRegex = RegExp(r";|/|\||,");
+
+          if (metadata.contentType!.contains(containRegex)) {
+            metadata.genres.addAll(
+              metadata.contentType!
+                  .split(containRegex)
+                  .map((e) => e.trim())
+                  .toList(),
+            );
+          } else if (regex.hasMatch(metadata.contentType!)) {
+            metadata.genres.add(
+              id3Genres[regex
+                      .allMatches(metadata.contentType!)
+                      .first
+                      .group(0)!] ??
+                  "",
+            );
+          } else if (metadata.contentType!.isNotEmpty) {
+            metadata.genres.add(metadata.contentType!);
+          }
+        },
+      "TCOM" => () {
+          final content = buffer.read(size);
+          metadata.composer = getTextFromFrame(content);
+        },
+      "TDAT" => () {
+          final content = buffer.read(size);
+          metadata.date = getTextFromFrame(content);
+        },
+      "TDLY" => () {
+          final content = buffer.read(size);
+          metadata.playlistDelay = getTextFromFrame(content);
+        },
+      "TENC" => () {
+          final content = buffer.read(size);
+          metadata.encodedBy = getTextFromFrame(content);
+        },
+      "TFLT" => () {
+          final content = buffer.read(size);
+          metadata.fileType = getTextFromFrame(content);
+        },
+      "TIME" => () {
+          final content = buffer.read(size);
+          metadata.time = getTextFromFrame(content);
+        },
+      "TIT1" => () {
+          final content = buffer.read(size);
+          metadata.contentGroupDescription = getTextFromFrame(content);
+        },
+      "TIT2" => () {
+          final content = buffer.read(size);
+          metadata.songName = getTextFromFrame(content);
+        },
+      "TIT3" => () {
+          final content = buffer.read(size);
+          metadata.subtitle = getTextFromFrame(content);
+        },
+      "TKEY" => () {
+          final content = buffer.read(size);
+          metadata.initialKey = getTextFromFrame(content);
+        },
+      "TLAN" => () {
+          final content = buffer.read(size);
+          metadata.languages = getTextFromFrame(content);
+        },
+      "TLEN" => () {
+          final content = buffer.read(size);
+          final time = int.tryParse(getTextFromFrame(content));
+
+          if (time != null) {
+            if ((time / 1000) < 1) {
+              metadata.duration = Duration(seconds: time);
+            } else {
+              metadata.duration = Duration(milliseconds: time);
+            }
+          }
+        },
+      "TMED" => () {
+          final content = buffer.read(size);
+          metadata.mediatype = getTextFromFrame(content);
+        },
+      "TOAL" => () {
+          final content = buffer.read(size);
+          metadata.originalAlbum = getTextFromFrame(content);
+        },
+      "TOFN" => () {
+          final content = buffer.read(size);
+          metadata.originalFilename = getTextFromFrame(content);
+        },
+      "TOLY" => () {
+          final content = buffer.read(size);
+          metadata.originalTextWriter = getTextFromFrame(content);
+        },
+      "TOPE" => () {
+          final content = buffer.read(size);
+          metadata.originalArtist = getTextFromFrame(content);
+        },
+      "TORY" => () {
+          final content = buffer.read(size);
+          metadata.originalReleaseYear = _parseYear(getTextFromFrame(content));
+        },
+      "TOWN" => () {
+          final content = buffer.read(size);
+          metadata.fileOwner = getTextFromFrame(content);
+        },
+      "TDRC" => () {
+          final content = buffer.read(size);
+          final date = getTextFromFrame(content);
+          metadata.year = _parseYear(date);
+          metadata.customMetadata['DATE'] = date;
+        },
+      "TYER" => () {
+          final content = buffer.read(size);
+          final date = getTextFromFrame(content);
+          metadata.year = _parseYear(date);
+          metadata.customMetadata['DATE'] = date;
+        },
+      "TRDA" => () {
+          final content = buffer.read(size);
+          final date = getTextFromFrame(content);
+          metadata.year = _parseYear(date);
+          metadata.customMetadata['DATE'] = date;
+        },
+      "TPE1" => () {
+          final content = buffer.read(size);
+          metadata.leadPerformer = getTextFromFrame(content);
+        },
+      "TPE2" => () {
+          final content = buffer.read(size);
+          metadata.bandOrOrchestra = getTextFromFrame(content);
+        },
+      "TPE3" => () {
+          final content = buffer.read(size);
+          metadata.conductor = getTextFromFrame(content);
+        },
+      "TPE4" => () {
+          final content = buffer.read(size);
+          metadata.interpreted = getTextFromFrame(content);
+        },
+      "TEXT" => () {
+          final content = buffer.read(size);
+          metadata.textWriter = getTextFromFrame(content);
+        },
+      "TPOS" || "TPA" => () {
+          final content = buffer.read(size);
+          final value = getTextFromFrame(content).replaceAll('\x00', '').trim();
+          metadata.partOfSet = value;
+
+          final match = _discRegex.firstMatch(value);
+
+          if (match != null) {
+            metadata.discNumber = int.parse(match.group(1)!);
+            metadata.totalDics = int.parse(match.group(2)!);
+          } else {
+            metadata.discNumber = int.tryParse(value);
+          }
+        },
+      "TPUB" => () {
+          final content = buffer.read(size);
+          metadata.publisher = getTextFromFrame(content);
+        },
+      "TRCK" || "TRK" => () {
+          final content = buffer.read(size);
+          final trackInfo =
+              getTextFromFrame(content).replaceAll('\x00', '').trim();
+
+          if (trackInfo.isEmpty) {
+            return;
+          }
+
+          final match = _trackRegex.firstMatch(trackInfo);
+
+          if (match != null) {
+            metadata.trackNumber = int.parse(match.group(1)!);
+            metadata.trackTotal = int.parse(match.group(2)!);
+          } else {
+            // ID3 text frames come from external taggers. A malformed value
+            // such as "Enero" must not abort parsing the whole audio file;
+            // it simply does not provide a usable track number.
+            metadata.trackNumber = int.tryParse(trackInfo);
+          }
+        },
+      "TRSN" => () {
+          final content = buffer.read(size);
+          metadata.internetRadioStationName = getTextFromFrame(content);
+        },
+      "TRSO" => () {
+          final content = buffer.read(size);
+          metadata.internetRadioStationOwner = getTextFromFrame(content);
+        },
+      "TSIZ" => () {
+          final content = buffer.read(size);
+          metadata.size = getTextFromFrame(content);
+        },
+      "TSRC" => () {
+          final content = buffer.read(size);
+          metadata.isrc = getTextFromFrame(content);
+        },
+      "TXXX" => () {
+          final content = buffer.read(size);
+          final frame = TXXXFrame(content);
+          metadata.customMetadata[frame.description] = frame.information;
+        },
+      "USLT" => () {
+          final content = buffer.read(size);
+          metadata.lyric = getUnsynchronisedLyric(content);
+        },
+      "TSSE" => () {
+          final content = buffer.read(size);
+          metadata.encoderSoftware = getTextFromFrame(content);
+        },
+      _ => () {
+          final Uint8List content = buffer.read(size);
+          metadata.customMetadata[frameId] = _getUnknownFrameValue(
+            frameId,
+            content,
+          );
+        },
+    };
+
+    handlers.call();
+  }
+
+  ID3v3Frame? getFrame(RandomAccessFile reader,
+      {required bool isV4, bool isV2 = false}) {
+    if (isV2) {
+      final header = buffer.read(6);
+      if (header.every((b) => b == 0)) return null;
+      final id = String.fromCharCodes(header.sublist(0, 3));
+      final size = header[3] << 16 | header[4] << 8 | header[5];
+      const aliases = {
+        'TT2': 'TIT2',
+        'TP1': 'TPE1',
+        'TP2': 'TPE2',
+        'TAL': 'TALB',
+        'TYE': 'TYER',
+        'TRK': 'TRCK',
+        'TPA': 'TPOS',
+        'TCO': 'TCON',
+        'TXT': 'TEXT',
+        'TXX': 'TXXX',
+        'ULT': 'USLT'
+      };
+      return ID3v3Frame(aliases[id] ?? id, size, Uint8List(0));
+    }
+    final headerBytes = buffer.read(10);
+
+    if (headerBytes.every((element) => element == 0)) return null;
+
+    int size;
+
+    // the id3 v4 ignore the first bit of every byte from the size
+    if (isV4) {
+      size = (headerBytes[7] & 0xFF) |
+          ((headerBytes[6] & 0xFF) << 7) |
+          ((headerBytes[5] & 0xFF) << 14) |
+          ((headerBytes[4] & 0xFF) << 21);
+    } else {
+      size = headerBytes[7] +
+          (headerBytes[6] << 8) +
+          (headerBytes[5] << 16) +
+          (headerBytes[4] << 24);
+    }
+
+    final flags = headerBytes.sublist(8);
+    final id = String.fromCharCodes(headerBytes.sublist(0, 4));
+
+    return ID3v3Frame(id, size, flags);
+  }
+
+  Picture getPicture(Uint8List content) {
+    int offset = 0;
+
+    final reader = ByteData.sublistView(content);
+    final encoding = reader.getUint8(offset++);
+
+    final mimetype = [reader.getUint8(offset++)];
+
+    while (mimetype.last != 0) {
+      mimetype.add(reader.getUint8(offset));
+      offset++;
+    }
+    mimetype.removeLast();
+
+    final pictureType = reader.getUint8(offset);
+
+    offset++;
+
+    if (encoding == 1) {
+      // APIC encoding 1 uses UTF-16 with a BOM. Its description is terminated
+      // by a UTF-16 NUL code unit (`00 00`), not by the first zero byte. A
+      // single-byte scan would stop in the middle of every UTF-16 character
+      // and make the returned image include the rest of the description.
+      //
+      // Layout at this point:
+      //   FF FE       UTF-16LE BOM
+      //   XX 00 ...   description code units
+      //   00 00       description terminator
+      while (offset + 1 < reader.lengthInBytes) {
+        final first = reader.getUint8(offset++);
+        final second = reader.getUint8(offset++);
+        if (first == 0 && second == 0) {
+          break;
+        }
+      }
+    } else {
+      final description = [reader.getInt8(offset++)];
+
+      while (description.last != 0) {
+        description.add(reader.getInt8(offset++));
+      }
+    }
+
+    if (encoding == 1 || encoding == 2) {
+      while (reader.getInt8(offset) == 0) {
+        offset++;
+      }
+    }
+
+    return Picture(
+      reader.buffer.asUint8List(offset),
+      String.fromCharCodes(mimetype),
+      getPictureTypeEnum(pictureType),
+    );
+  }
+
+  String getUnsynchronisedLyric(Uint8List content) {
+    if (content.length < 5) return '';
+    final encoding = content[0];
+    var start = 4; // Encoding byte and three-byte language.
+    if (encoding == 1 || encoding == 2) {
+      while (start + 1 < content.length &&
+          !(content[start] == 0 && content[start + 1] == 0)) {
+        start += 2;
+      }
+      start += 2;
+    } else {
+      while (start < content.length && content[start] != 0) {
+        start++;
+      }
+      start++;
+    }
+    if (start >= content.length) return '';
+    final bytes = content.sublist(start);
+    final text = switch (encoding) {
+      0 => latin1.decode(bytes),
+      1 => bytes.length >= 2 && bytes[0] == 0xfe && bytes[1] == 0xff
+          ? utf16Decoder.decodeUtf16Be(bytes)
+          : utf16Decoder.decodeUtf16Le(bytes),
+      2 => utf16Decoder.decodeUtf16Be(bytes),
+      3 => utf8.decode(bytes),
+      _ => '',
+    };
+    return text.replaceAll('\x00', '').replaceAll('\uFEFF', '');
+  }
+
+  int? _parseYear(String year) {
+    if (year.contains("-")) {
+      return int.tryParse(year.split("-").first);
+    } else if (year.contains("/")) {
+      return int.tryParse(year.split("/").first);
+    } else {
+      return int.tryParse(year);
+    }
+  }
+}

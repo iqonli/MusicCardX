@@ -1,0 +1,84 @@
+Resolving dependencies...
+Downloading packages...
+  archive 3.6.1 (4.5.2 available)
+  dynamic_color 1.9.0 (2.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+Got dependencies!
+6 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: (setUpAll)
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: default Album expression preserves separator for every tag combination
+00:00 +1: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: JSON fields discard invalid values while preserving tags and lists
+00:00 +2: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +3: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +4: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +5: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +6: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +7: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +8: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +9: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: (setUpAll)
+00:00 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +12: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +13: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +14: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +15: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +16: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +17: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +18: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +19: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +20: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +21: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +22: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +23: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +24: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +25: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +26: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +27: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +28: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +29: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +30: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +31: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +32: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +33: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:01 +34: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:01 +35: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:01 +36: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:01 +37: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:01 +38: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:01 +39: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:02 +40: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:02 +41: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:02 +42: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:02 +43: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:02 +44: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:02 +45: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:02 +46: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:03 +47: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:03 +48: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:03 +49: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:03 +50: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+dynamic_color: Dynamic color not detected on this device.
+00:04 +51: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +52: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +53: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +54: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +55: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +56: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +57: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:04 +58: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:05 +59: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:05 +59: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+dynamic_color: Dynamic color not detected on this device.
+00:05 +60: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:06 +61: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:06 +62: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+dynamic_color: Dynamic color not detected on this device.
+00:06 +63: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (tearDownAll)
+00:06 +63: All tests passed!

@@ -1,0 +1,22 @@
+{
+  "original_svg_sha256": "2635f3fe0da3bb3eb74a4da40fbace2ee523f7d6acde6a98212f22653c31a4a5",
+  "outlined_svg_has_live_text": false,
+  "adaptive_canvas": [
+    864,
+    864
+  ],
+  "foreground_bounds": [
+    200,
+    399,
+    664,
+    465
+  ],
+  "legacy_icon_sizes": [
+    48,
+    72,
+    96,
+    144,
+    192
+  ],
+  "manifest_icon": "@mipmap/ic_launcher"
+}

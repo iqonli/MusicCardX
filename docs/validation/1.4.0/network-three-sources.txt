@@ -1,0 +1,5 @@
+apple candidates=0
+163 candidates=30
+appleweb candidates=22
+163 thumbnailBytes=4909 signature=true
+appleweb thumbnailBytes=43770 signature=true

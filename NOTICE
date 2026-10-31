@@ -1,0 +1,32 @@
+MusicCardX
+Copyright (C) 2026 PerryDing / IQ Online Studio
+SPDX-License-Identifier: LGPL-3.0-or-later
+
+本项目的完整许可证正文只维护根目录LICENSE一份，构建时作为Flutter资源打包。
+
+IQ Online Studio内部项目
+- MusicCard：https://github.com/iqonli/MusicCard，LGPL-3.0-or-later。
+  移植参考版本4.16.7，提交34dc45af3996754f12184f2aaadaf4d072202b49。
+- ezCD：https://github.com/iqonli/ezCD，所用字体管理代码为MIT。
+  参考提交3127b29b41d09f2b1c3959e9734eee02724fffea；名称解析、家族、字重、可变轴和共享目录协议已改写为Dart。
+- AutoCoverDownTool0.8.17，Copyright (c) 2026 PerryDing，所用封面搜索与匹配参考代码为MIT。
+
+以上项目统一归于PerryDing / IQ Online Studio说明，不作为互不相关的外部作者逐次重复署名。
+ezCD和AutoCoverDownTool所用MIT代码的完整授权正文合并为assets/licenses/IQ-Online-Studio-MIT.txt。
+这项整理不改变各项目已经公布的许可证，也不覆盖其中属于其他作者的代码或数据。
+
+外部项目
+- opencc-js1.4.1，Copyright (c) 2020-2021 The nk2028 Project，MIT。
+  正文：assets/licenses/opencc-js-MIT.txt。
+- OpenCC词典和配置，Apache-2.0，正文：assets/licenses/opencc-data-Apache.txt。
+- unorm_dart0.3.3，Copyright (c) 2018 Yasuhiro Shimizu，MIT。
+  正文：assets/licenses/unorm_dart-MIT.txt。
+- PhotoView，MIT，原始声明见third_party/photo_view/LICENSE。
+  本地修改见该目录MCX-PATCHES.md（手指接触时停止惯性）。
+- audio_metadata_reader，MIT，原始声明见third_party/audio_metadata_reader/LICENSE。
+  本地修改见该目录MCX-PATCHES.md（ID3与曲序兼容）。
+- Flutter、Material Color Utilities、dynamic_color、characters、archive、image、crypto和PointyCastle等依赖保留各自许可证，Flutter构建工具将依赖声明汇总到应用内Licenses。
+
+本地依赖包的LICENSE由Flutter自动收集，不再另外复制到assets后重复注册。
+外部作者的版权行、授权条件和本地补丁说明保持原文，不适用工作室内部项目的归属合并规则。
+“类foobar”取色为MusicCardX自有算法，并非foobar2000实现的复制。

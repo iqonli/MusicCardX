@@ -1,0 +1,14 @@
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: OpenCC results match bundled original library
+00:00 +1: manual fields and title formatting
+00:00 +2: rainbow percentage moves toward target
+00:00 +3: config roundtrip preserves fields and empty spacing
+00:00 +4: all backgrounds export PNG and X seeds are repeatable
+00:02 +5: oversized output is rejected before bitmap allocation
+00:02 +6: ezCD v1 rejects unsafe paths and unknown versions
+00:02 +7: Dart TTC parsing and standalone face extraction
+00:02 +8: ezCD staged update keeps last usable snapshot on hash failure
+00:02 +9: dense workspace, pin and fullscreen viewport
+00:05 +10: (tearDownAll)
+00:05 +10: All tests passed!

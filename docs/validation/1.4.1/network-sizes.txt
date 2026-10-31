@@ -1,0 +1,6 @@
+apple candidates=30
+apple requested=150 actual=150x150 bytes=40993
+apple requested=1000 actual=1000x1000 bytes=1642953
+appleweb candidates=22
+appleweb requested=150 actual=137x150 bytes=43770
+appleweb requested=1000 actual=916x1000 bytes=1766480

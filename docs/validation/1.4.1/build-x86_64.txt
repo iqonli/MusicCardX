@@ -1,0 +1,18 @@
+Resolving dependencies...
+Downloading packages...
+  archive 3.6.1 (4.5.2 available)
+  dynamic_color 1.9.0 (2.1.0 available)
+  image 4.3.0 (4.12.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  petitparser 7.0.2 (7.1.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 6.6.1 (7.1.0 available)
+Got dependencies!
+9 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running Gradle task 'assembleRelease'...                        
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 4276 bytes (99.7% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Running Gradle task 'assembleRelease'...                            7.5s
+✓ Built build/app/outputs/flutter-apk/app-x86_64-release.apk (28.3MB)

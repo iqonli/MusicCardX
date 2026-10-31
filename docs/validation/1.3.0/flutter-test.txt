@@ -1,0 +1,29 @@
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +1: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +2: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +3: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +4: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (setUpAll)
+00:00 +4: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: all quantizers produce five deterministic colors
+00:00 +5: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: OpenCC results match bundled original library
+00:00 +6: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: OpenCC results match bundled original library
+00:00 +7: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:00 +8: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:00 +9: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:00 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:01 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:01 +12: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:01 +13: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:03 +14: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: oversized output is rejected before bitmap allocation
+00:03 +15: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: ezCD v1 rejects unsafe paths and unknown versions
+00:03 +16: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: Dart TTC parsing and standalone face extraction
+00:03 +17: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: ezCD staged update keeps last usable snapshot on hash failure
+00:03 +18: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: local and ezCD sources resolve identical metadata weight and pixels
+00:03 +19: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: decimal seeds and old antialias migration
+00:03 +20: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: ezCD named weight and family matching rules
+00:03 +21: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: font metadata equals ezCD fixtures and repaired runtime SFNT checksums
+00:03 +22: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:05 +23: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: color picker supports RGB HSL HEX
+00:05 +24: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:07 +25: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: (tearDownAll)
+00:07 +25: All tests passed!

@@ -1,0 +1,32 @@
+name: musiccardx
+description: MusicCardX Android card editor, ported from MusicCard.
+publish_to: none
+version: 1.4.3+19
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  material_color_utilities: 0.13.0
+  photo_view:
+    path: third_party/photo_view
+  dynamic_color: ^1.8.1
+  audio_metadata_reader:
+    path: third_party/audio_metadata_reader
+  characters: ^1.4.1
+  archive: 3.6.1
+  image: 4.3.0
+  pointycastle: ^4.0.0
+  crypto: ^3.0.7
+  unorm_dart: ^0.3.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+flutter:
+  uses-material-design: true
+  assets:
+    - LICENSE
+    - assets/defaults.json
+    - assets/opencc.json
+    - assets/licenses/

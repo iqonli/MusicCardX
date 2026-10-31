@@ -1,0 +1,101 @@
+Waiting for another flutter command to release the startup lock...
+Resolving dependencies...
+Downloading packages...
+  archive 3.6.1 (4.5.2 available)
+  dynamic_color 1.9.0 (2.1.0 available)
+  image 4.3.0 (4.12.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  petitparser 7.0.2 (7.1.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 6.6.1 (7.1.0 available)
+Got dependencies!
+9 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: (setUpAll)
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: default Album expression preserves separator for every tag combination
+00:00 +1: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: JSON fields discard invalid values while preserving tags and lists
+00:00 +2: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads mp3 file tags
+00:00 +3: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads flac file tags
+00:00 +4: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads m4a file tags
+00:00 +5: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads ogg file tags
+00:00 +6: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads opus file tags
+00:00 +7: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads wav file tags
+00:00 +8: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: embedded audio cover is read as bytes
+00:00 +9: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: standard ID3 USLT preserves the first character and multiline lyrics
+00:00 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: each shape uses its own radius parameter
+00:00 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +12: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +13: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +14: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +15: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +16: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +17: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +18: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +19: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +20: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +21: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +22: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:00 +23: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: OpenCC results match bundled original library
+00:00 +24: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: actual image viewer keeps contained layout and zoom with bicubic
+00:00 +25: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: actual image viewer keeps contained layout and zoom with bicubic
+00:00 +26: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: actual image viewer keeps contained layout and zoom with bicubic
+00:00 +27: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: actual image viewer keeps contained layout and zoom with bicubic
+00:00 +28: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: actual image viewer keeps contained layout and zoom with bicubic
+00:01 +29: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:01 +30: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:02 +31: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:02 +32: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:02 +33: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:02 +34: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +35: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +36: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +37: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +38: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +39: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +40: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +41: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +42: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +43: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:02 +44: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:03 +45: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:03 +46: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:03 +47: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:03 +48: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:03 +49: /workspace/scratch/b362c1002b27/MusicCardX/test/v13_test.dart: variable weight supports direct entry and step buttons
+00:03 +50: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:03 +51: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:04 +52: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:04 +53: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:04 +54: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:04 +55: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:04 +56: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+dynamic_color: Dynamic color not detected on this device.
+00:04 +57: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:04 +58: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:05 +59: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:06 +59: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+dynamic_color: Dynamic color not detected on this device.
+00:06 +60: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+dynamic_color: Dynamic color not detected on this device.
+00:06 +61: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:06 +62: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:06 +63: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:06 +64: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:07 +64: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+dynamic_color: Dynamic color not detected on this device.
+00:07 +65: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+00:07 +66: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+00:07 +67: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: 颜色 dialog actions have no page-button fill
+00:08 +68: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: 颜色 dialog actions have no page-button fill
+00:08 +69: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:08 +70: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:08 +71: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: 圆角 dialog actions have no page-button fill
+00:08 +72: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: (tearDownAll)
+00:08 +72: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: JSON dialog actions have no page-button fill
+00:08 +73: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: 压缩 dialog actions have no page-button fill
+00:08 +74: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: nested dialogs remain transparent and restore page styles after close
+00:08 +75: /workspace/scratch/b362c1002b27/MusicCardX/test/dialog_buttons_test.dart: (tearDownAll)
+00:08 +75: All tests passed!

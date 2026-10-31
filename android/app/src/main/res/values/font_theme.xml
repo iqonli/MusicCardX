@@ -1,0 +1,1 @@
+<resources><style name="FontManagerTheme" parent="android:style/Theme.Material.Light"><item name="android:colorAccent">#2864c5</item><item name="android:windowLightStatusBar">true</item><item name="android:statusBarColor">#fafbfc</item><item name="android:windowActionModeOverlay">false</item></style></resources>

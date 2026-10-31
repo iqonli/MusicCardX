@@ -1,0 +1,118 @@
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: (setUpAll)
+00:00 +0: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_http_test.dart: HttpClient handles JSON, form posts, bounded streams, errors and cancellation
+00:00 +1: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_http_test.dart: HttpClient handles JSON, form posts, bounded streams, errors and cancellation
+00:00 +2: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_http_test.dart: HttpClient handles JSON, form posts, bounded streams, errors and cancellation
+00:00 +3: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +4: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +5: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +6: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +7: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +8: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +9: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:00 +10: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+dynamic_color: Dynamic color not detected on this device.
+00:01 +11: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:01 +12: /workspace/scratch/b362c1002b27/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+00:01 +13: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:01 +14: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +15: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +16: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +17: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:03 +18: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:03 +19: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:03 +20: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:03 +21: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:03 +22: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:03 +23: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:04 +24: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:04 +25: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:04 +26: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:05 +26: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+dynamic_color: Dynamic color not detected on this device.
+00:05 +27: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:05 +28: /workspace/scratch/b362c1002b27/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:05 +29: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +30: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +31: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +32: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +33: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +34: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +35: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +36: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +37: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:06 +38: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:07 +39: /workspace/scratch/b362c1002b27/MusicCardX/test/v132_test.dart: input buttons have standard targets and bottom tabs are 56dp
+00:07 +40: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:08 +41: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: low-score candidates load previews only after manual download
+00:08 +42: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: color picker supports RGB HSL HEX
+00:08 +43: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +44: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +45: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +46: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +47: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +48: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +49: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +50: /workspace/scratch/b362c1002b27/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:08 +51: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:09 +52: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:10 +53: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:11 +54: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:11 +55: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:11 +56: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:11 +57: /workspace/scratch/b362c1002b27/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+dynamic_color: Dynamic color not detected on this device.
+00:12 +58: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:12 +59: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+00:12 +60: /workspace/scratch/b362c1002b27/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+dynamic_color: Dynamic color not detected on this device.
+00:13 +61: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:13 +62: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:13 +63: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:13 +64: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:13 +65: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:13 +66: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: a share received during confirmation is handled after cancel
+00:14 +67: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:14 +68: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +69: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +70: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +71: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +72: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +73: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +74: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +75: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +76: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +77: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +78: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +79: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:15 +79: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+dynamic_color: Dynamic color not detected on this device.
+00:15 +80: /workspace/scratch/b362c1002b27/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+00:15 +81: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:16 +82: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+dynamic_color: Dynamic color not detected on this device.
+00:16 +83: /workspace/scratch/b362c1002b27/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:17 +84: /workspace/scratch/b362c1002b27/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:17 +85: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: export icons, theme-backed panels, and redesigned About
+00:17 +86: /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart: export icons, theme-backed panels, and redesigned About
+00:17 +87: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: JSON fields discard invalid values while preserving tags and lists
+00:18 +88: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads mp3 file tags
+00:18 +89: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads flac file tags
+00:18 +90: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads m4a file tags
+00:18 +91: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads ogg file tags
+00:18 +92: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads opus file tags
+00:18 +93: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: pure Dart reads wav file tags
+00:18 +94: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: embedded audio cover is read as bytes
+00:18 +95: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: standard ID3 USLT preserves the first character and multiline lyrics
+00:18 +96: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: each shape uses its own radius parameter
+00:18 +97: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:19 +98: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:19 +99: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: new shapes remain bounded and survive strict configuration import
+00:19 +100: /workspace/scratch/b362c1002b27/MusicCardX/test/v131_test.dart: inline preview pans with two fingers without introducing zoom and tap opens
+00:19 +101: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:20 +102: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:22 +103: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:24 +104: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: crop position dialog slider and number stay in sync
+00:25 +105: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: filename dialog previews editing without saving on cancel
+00:25 +106: /workspace/scratch/b362c1002b27/MusicCardX/test/v135_test.dart: (tearDownAll)
+00:26 +106: All tests passed!

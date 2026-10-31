@@ -1,0 +1,29 @@
+Waiting for another flutter command to release the startup lock...
+Resolving dependencies...
+Downloading packages...
+  archive 3.6.1 (4.5.2 available)
+  dynamic_color 1.9.0 (2.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+Got dependencies!
+6 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /workspace/scratch/b362c1002b27/MusicCardX/test/v133_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: ID3v2.2 track [48, 51, 32, 47, 32, 49, 50, 0]
+00:00 +1: ID3v2.3 track [48, 51, 0]
+00:00 +2: ID3v2.3 track [48, 51, 32, 47, 32, 49, 50, 0]
+00:00 +3: ID3v2.4 track [48, 51, 0]
+00:00 +4: ID3v1.1 track is read with v2=false
+00:00 +5: ID3v1.1 track is read with v2=true
+00:00 +6: Vorbis TRACK aliases and invalid total do not abort tags
+00:00 +7: foobar-like palette favours representative vivid colours over dominant grey
+00:00 +8: font cleanup retains referenced imports, removes only regenerable blobs
+00:00 +9: legacy font duplicate removal requires verified complete migration
+00:00 +10: Gaussian cover shadow has no alternating contour gaps at 4x
+00:00 +11: actual image viewer keeps contained layout and zoom with bicubic
+00:01 +12: export icons, theme-backed panels, and redesigned About
+00:02 +13: (tearDownAll)
+00:02 +13: All tests passed!
