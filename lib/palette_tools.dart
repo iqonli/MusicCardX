@@ -402,7 +402,7 @@ class _PalettePointState extends State<PalettePointPage> {
         ),
         if (chosen.length == 5)
           IconButton(
-            tooltip: '确认',
+            tooltip: '确定',
             onPressed: () => Navigator.pop(context, [
               for (final i in chosen) colorHex(colors[i]),
             ]),

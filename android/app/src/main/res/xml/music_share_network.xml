@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+  <base-config cleartextTrafficPermitted="false" />
+  <domain-config cleartextTrafficPermitted="true">
+    <domain>search.kuwo.cn</domain><domain>mobilecdn.kugou.com</domain><domain>m.kugou.com</domain><domain>imge.kugou.com</domain>
+  </domain-config>
+</network-security-config>

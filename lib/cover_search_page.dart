@@ -654,6 +654,7 @@ class CoverDetailPage extends StatefulWidget {
   final CoverCandidate candidate;
   final CoverLoader loader;
   final int previewSize, downloadSize;
+  final bool askDownloadSize;
   final Future<bool> Function(CoverAsset) onSave;
   const CoverDetailPage({
     super.key,
@@ -661,6 +662,7 @@ class CoverDetailPage extends StatefulWidget {
     required this.loader,
     required this.previewSize,
     required this.downloadSize,
+    this.askDownloadSize = false,
     required this.onSave,
   });
   @override
@@ -756,9 +758,55 @@ class _CoverDetailPageState extends State<CoverDetailPage> {
     }
   }
 
+  Future<int?> requestSize() async {
+    if (!widget.askDownloadSize) return widget.downloadSize;
+    final controller = TextEditingController(text: '1000');
+    final size = await showCardDialog<int>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('下载封面尺寸'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(helperText: '0为最大'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('取消'),
+          ),
+          TextButton(
+            onPressed: () {
+              final n = int.tryParse(controller.text);
+              if (n != null && n >= 0 && n <= 10000) {
+                Navigator.pop(ctx, n);
+              }
+            },
+            child: const Text('确定'),
+          ),
+        ],
+      ),
+    );
+    Future.delayed(const Duration(milliseconds: 400), controller.dispose);
+    return size;
+  }
+
+  Future<void> downloadCover() async {
+    final size = await requestSize();
+    if (size != null && mounted) {
+      await load(size);
+    }
+  }
+
   Future<void> useCover() async {
     if (working || current == null) return;
-    if (!downloaded && !await load(widget.downloadSize)) return;
+    if (widget.askDownloadSize) {
+      final size = await requestSize();
+      if (size == null || !mounted || !await load(size)) return;
+    } else if (!downloaded && !await load(widget.downloadSize)) {
+      return;
+    }
     if (mounted && current != null) Navigator.pop(context, current);
   }
 
@@ -787,7 +835,7 @@ class _CoverDetailPageState extends State<CoverDetailPage> {
       actions: [
         IconButton(
           tooltip: '下载大图',
-          onPressed: working ? null : () => load(widget.downloadSize),
+          onPressed: working ? null : downloadCover,
           icon: const Icon(Icons.download_outlined),
         ),
         IconButton(

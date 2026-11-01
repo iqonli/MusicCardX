@@ -1,0 +1,1 @@
+kugou {title: 惊鸿一面, artist: 许嵩、黄龄, album: 不如吃茶去, date: 2014-08-23, totaltracks: 9, tracknumber: 5} [曲序若来自完整专辑列表，为列表排序推断；未知碟号不假设为1]

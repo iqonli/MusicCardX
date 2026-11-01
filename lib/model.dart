@@ -48,6 +48,7 @@ class CardDocument {
   Map<String, dynamic> data;
   CardDocument(this.data) {
     normalizeDocumentColors(data);
+    enforceDisabledSongFields();
   }
   static Future<void> initialize() async {
     defaults = mapv(
@@ -56,7 +57,7 @@ class CardDocument {
   }
 
   factory CardDocument.fresh() => CardDocument({
-    'musicCardXVersion': '1.4.3',
+    'musicCardXVersion': '1.4.4',
     'styleSchemaVersion': 16,
     'musicCardXSchemaVersion': 1,
     'exportScale': 1.0,
@@ -81,6 +82,7 @@ class CardDocument {
     'songSearch_appleweb': false,
     'songSearch_qq': true,
     'songSearchRegion': 'cn',
+    'disabledSongFields': <String>[],
     'fontPreferences': <String, dynamic>{
       'mode': 'local',
       'tree': '',
@@ -195,7 +197,7 @@ class CardDocument {
       if (!ccModes.containsKey(d.data[k])) d.data[k] = 'off';
     }
     d.data['textRenderingHint'] = 4;
-    d.data['musicCardXVersion'] = '1.4.3';
+    d.data['musicCardXVersion'] = '1.4.4';
     if (!raw.containsKey('coverShape') && d.n('coverCornerRadius') == 180) {
       d.data['coverShape'] = 'ellipse';
     }
@@ -209,9 +211,31 @@ class CardDocument {
       d.data['jpegQuality'],
       95,
     ).round().clamp(1, 100);
+    d.enforceDisabledSongFields();
     return d;
   }
-  Map<String, dynamic> get fields => data['fields'];
+  Set<String> get disabledSongFields => data['disabledSongFields'] is List
+      ? (data['disabledSongFields'] as List)
+            .whereType<String>()
+            .where(songInputFields.containsKey)
+            .toSet()
+      : <String>{};
+  void enforceDisabledSongFields() {
+    final disabled = disabledSongFields;
+    data['disabledSongFields'] = disabled.toList();
+    final values = data['fields'];
+    if (values is Map) {
+      values.removeWhere((key, value) => disabled.contains(key));
+    }
+  }
+
+  Map<String, dynamic> cleanSongFields(Map<String, dynamic> source) =>
+      normalizeSongFields(source, disabled: disabledSongFields);
+  Map<String, dynamic> get fields {
+    enforceDisabledSongFields();
+    return data['fields'];
+  }
+
   Map<String, dynamic> get styles => data['style'];
   Map<String, dynamic> get lyrics => data['lyrics'];
   String text(String key) => '${data[key] ?? ''}';

@@ -9,6 +9,7 @@ import 'font_style.dart';
 import 'weight_dialog.dart';
 import 'audio_import.dart';
 import 'song_fields.dart';
+import 'disabled_song_fields_dialog.dart';
 import 'compact_table.dart';
 import 'cover_shape_dialog.dart';
 import 'about_page.dart';
@@ -60,12 +61,15 @@ void main() async {
   LicenseRegistry.addLicense(() async* {
     for (final entry in <String, String>{
       'MusicCardX / MusicCard': 'LICENSE',
-      'IQ Online Studio (ezCD / AutoCoverDownTool)': 'assets/licenses/IQ-Online-Studio-MIT.txt',
+      'IQ Online Studio (ezCD / AutoCoverDownTool)':
+          'assets/licenses/IQ-Online-Studio-MIT.txt',
       'opencc-js': 'assets/licenses/opencc-js-MIT.txt',
       'OpenCC数据': 'assets/licenses/opencc-data-Apache.txt',
       'unorm_dart': 'assets/licenses/unorm_dart-MIT.txt',
     }.entries) {
-      yield LicenseEntryWithLineBreaks([entry.key], await rootBundle.loadString(entry.value));
+      yield LicenseEntryWithLineBreaks([
+        entry.key,
+      ], await rootBundle.loadString(entry.value));
     }
   });
   useMonet = doc.data['monet'] == true;
@@ -1355,13 +1359,24 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
       ) ??
       false;
 
-  Future<void> searchSongInformation() async {
+  Future<void> searchSongInformation({String? sharedText}) async {
     FocusManager.instance.primaryFocus?.unfocus();
     commitInput();
     final fields = await Navigator.push<Map<String, dynamic>>(
       context,
       MaterialPageRoute(
-        builder: (_) => SongSearchPage(document: doc, onSettings: _save),
+        builder: (_) => SongSearchPage(
+          document: doc,
+          onSettings: _save,
+          initialShareText: sharedText,
+          onFields: (fields) async {
+            doc.data['fields'] = fields;
+            setState(() => doc = CardDocument(deepCopy(doc.data)));
+            changed();
+          },
+          onCover: applySharedCover,
+          onSaveCover: saveCoverAsset,
+        ),
       ),
     );
     if (fields == null || !mounted) return;
@@ -1384,6 +1399,29 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
       ),
     );
     if (asset == null || !mounted) return;
+    await busy(() async {
+      final root = await platform.invokeMethod<String>('storageRoot');
+      if (root == null) throw const FileSystemException('无法读取应用目录');
+      final directory = Directory('$root/covers');
+      await directory.create(recursive: true);
+      final file = File(
+        '${directory.path}/online-${DateTime.now().microsecondsSinceEpoch}.image',
+      );
+      final temporary = File('${file.path}.part');
+      try {
+        await temporary.writeAsBytes(asset.bytes, flush: true);
+        await temporary.rename(file.path);
+      } finally {
+        if (await temporary.exists()) await temporary.delete();
+      }
+      doc.data['coverPath'] = file.path;
+      revision++;
+      await _loadCover();
+      await _save();
+    });
+  }
+
+  Future<void> applySharedCover(CoverAsset asset) async {
     await busy(() async {
       final root = await platform.invokeMethod<String>('storageRoot');
       if (root == null) throw const FileSystemException('无法读取应用目录');
@@ -1471,6 +1509,33 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
     message('歌曲信息已读取');
   }
 
+  Future<void> manageDisabledSongFields() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    commitInput();
+    final disabled = await showCardDialog<Set<String>>(
+      context: context,
+      builder: (_) => DisabledSongFieldsDialog(initial: doc.disabledSongFields),
+    );
+    if (disabled == null || !mounted) return;
+    doc.data['disabledSongFields'] = disabled.toList();
+    setState(() => doc = CardDocument(deepCopy(doc.data)));
+    changed();
+  }
+
+  Future<void> clearSongCoverLyrics() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    commitInput();
+    if (!await confirm('清空歌曲信息、封面与歌词？') || !mounted) return;
+    doc.fields.clear();
+    doc.lyrics['text'] = '';
+    doc.data['coverPath'] = '';
+    revision++;
+    await _loadCover();
+    if (!mounted) return;
+    setState(() => doc = CardDocument(deepCopy(doc.data)));
+    changed();
+  }
+
   Widget inputPage() => Theme(
     data: Theme.of(context).copyWith(
       visualDensity: VisualDensity.standard,
@@ -1511,17 +1576,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
   Widget fieldsPage() => ListView(
     children: [
       normalSection('歌曲信息', [
-        for (final e in {
-          'title': '标题',
-          'artist': '艺术家',
-          'album artist': '专辑艺术家',
-          'album': '专辑',
-          'date': '日期／年份',
-          'discnumber': 'Disc',
-          'totaldiscs': 'Disc总数',
-          'tracknumber': 'Track',
-          'totaltracks': 'Track总数',
-        }.entries)
+        for (final e in songInputFields.entries)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 7, 16, 7),
             child: Focus(
@@ -1530,7 +1585,10 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
               },
               child: TextFormField(
                 key: ValueKey('field-${e.key}-${doc.hashCode}'),
-                initialValue: '${doc.fields[e.key] ?? ''}',
+                enabled: !doc.disabledSongFields.contains(e.key),
+                initialValue: doc.disabledSongFields.contains(e.key)
+                    ? '已禁用'
+                    : '${doc.fields[e.key] ?? ''}',
                 decoration: InputDecoration(labelText: e.value),
                 onChanged: (v) {
                   doc.fields[e.key] = v;
@@ -1543,7 +1601,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
           alignment: Alignment.centerLeft,
           child: TextButton(
             onPressed: searchSongInformation,
-            child: const Text('在线搜索歌曲信息'),
+            child: const Text('在线搜索'),
           ),
         ),
         Wrap(
@@ -1553,14 +1611,16 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
             TextButton(
               onPressed: () async {
                 if (await confirm('清空歌曲信息？')) {
-                  for (final k in doc.fields.keys) {
-                    doc.fields[k] = '';
-                  }
+                  doc.fields.clear();
                   setState(() => doc = CardDocument(deepCopy(doc.data)));
                   changed();
                 }
               },
               child: const Text('清空歌曲信息'),
+            ),
+            TextButton(
+              onPressed: manageDisabledSongFields,
+              child: const Text('管理禁用项目'),
             ),
           ],
         ),
@@ -1603,9 +1663,15 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
         ),
       ]),
       normalSection('', [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton(onPressed: pickAudio, child: const Text('从音频文件读取')),
+        Wrap(
+          spacing: 8,
+          children: [
+            TextButton(onPressed: pickAudio, child: const Text('从音频文件读取')),
+            TextButton(
+              onPressed: clearSongCoverLyrics,
+              child: const Text('清空歌曲信息、封面与歌词'),
+            ),
+          ],
         ),
       ]),
       normalSection('歌词内容', [
@@ -1868,7 +1934,8 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
   Future<void> songJson() async {
     final fields = await showCardDialog<Map<String, dynamic>>(
       context: context,
-      builder: (_) => SongJsonPage(fields: doc.fields),
+      builder: (_) =>
+          SongJsonPage(fields: doc.fields, disabled: doc.disabledSongFields),
     );
     if (fields != null) {
       doc.data['fields'] = normalizeSongFields(fields);
@@ -2152,6 +2219,20 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
 
   Future<void> applyIncoming(Map<String, dynamic> value) async {
     if (value['kind'] == 'error') throw FormatException('${value['text']}');
+    FocusManager.instance.primaryFocus?.unfocus();
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    if (value['kind'] != 'image' &&
+        value['kind'] != 'audio' &&
+        value['jsonFile'] != true) {
+      try {
+        decodeSongJson('${value['text']}');
+      } catch (_) {
+        // Receiving must not wait for this route to close: another share can
+        // replace it through the home route while this page is still open.
+        unawaited(searchSongInformation(sharedText: '${value['text']}'));
+        return;
+      }
+    }
     final image = value['kind'] == 'image';
     if (image) {
       if (!await confirmCover('${value['path']}')) return;

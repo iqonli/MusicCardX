@@ -275,7 +275,7 @@ void main() {
         await Future<void>.delayed(const Duration(milliseconds: 100));
       });
       await t.pumpAndSettle();
-      expect(find.byTooltip('确认'), findsNothing);
+      expect(find.byTooltip('确定'), findsNothing);
       expect(find.text('1'), findsNothing);
       await t.tap(find.text('开始连续选取5个'));
       await t.pump();
@@ -287,14 +287,14 @@ void main() {
         await t.tap(markers.at(n));
         await t.pump();
       }
-      expect(find.byTooltip('确认'), findsOneWidget);
+      expect(find.byTooltip('确定'), findsOneWidget);
       for (int n = 1; n <= 5; n++) {
         expect(find.text('$n'), findsOneWidget);
       }
       expect(find.text('重新连续选取5个'), findsOneWidget);
       await t.tap(markers.at(1));
       await t.pump();
-      expect(find.byTooltip('确认'), findsNothing);
+      expect(find.byTooltip('确定'), findsNothing);
       expect(
         find.descendant(of: markers.at(1), matching: find.byType(Text)),
         findsNothing,
@@ -348,7 +348,7 @@ void main() {
       expect(find.text('重新连续选取5个'), findsOneWidget);
       await t.tap(find.text('重新连续选取5个'));
       await t.pump();
-      expect(find.byTooltip('确认'), findsNothing);
+      expect(find.byTooltip('确定'), findsNothing);
       for (int n = 1; n <= 5; n++) {
         expect(find.text('$n'), findsNothing);
       }

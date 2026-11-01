@@ -75,7 +75,7 @@ class AboutPage extends StatelessWidget {
             style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
-          const Text('1.4.3', style: TextStyle(fontSize: 20)),
+          const Text('1.4.4', style: TextStyle(fontSize: 20)),
           const SizedBox(height: 20),
           const SelectableText(
             'by IQ Online Studio, github.com/iqonli/MusicCardX',

@@ -11,11 +11,8 @@ import 'renderer.dart';
 
 Map<String, dynamic> songFieldsFromText(String text) {
   final source = text.trim();
-  if (source.startsWith('{')) {
-    final value = jsonDecode(source);
-    if (value is! Map<String, dynamic>) {
-      throw const FormatException('歌曲信息须为JSON对象');
-    }
+  if (source.startsWith('{') || source.startsWith('```')) {
+    final value = decodeSongJson(source);
     return normalizeSongFields(
       value['fields'] is Map
           ? Map<String, dynamic>.from(value['fields'])
@@ -32,7 +29,12 @@ Map<String, dynamic> songFieldsFromText(String text) {
 
 class SongJsonPage extends StatefulWidget {
   final Map<String, dynamic> fields;
-  const SongJsonPage({super.key, required this.fields});
+  final Set<String> disabled;
+  const SongJsonPage({
+    super.key,
+    required this.fields,
+    this.disabled = const {},
+  });
   @override
   State<SongJsonPage> createState() => _SongJsonState();
 }
@@ -40,7 +42,7 @@ class SongJsonPage extends StatefulWidget {
 class _SongJsonState extends State<SongJsonPage> {
   late final controller = TextEditingController(
     text: const JsonEncoder.withIndent('  ')
-        .convert(normalizeSongFields(widget.fields)),
+        .convert(normalizeSongFields(widget.fields, disabled: widget.disabled)),
   );
   String? error;
   @override
@@ -51,11 +53,11 @@ class _SongJsonState extends State<SongJsonPage> {
 
   void confirm() {
     try {
-      final value = jsonDecode(controller.text);
-      if (value is! Map<String, dynamic>) {
-        throw const FormatException('歌曲信息须为JSON对象');
-      }
-      Navigator.pop(context, normalizeSongFields(value));
+      final value = decodeSongJson(controller.text);
+      Navigator.pop(
+        context,
+        normalizeSongFields(value, disabled: widget.disabled),
+      );
     } catch (e) {
       setState(() => error = '$e');
     }
@@ -103,11 +105,11 @@ class _SongJsonState extends State<SongJsonPage> {
                   controller.clear();
                   controller.text = data?.text ?? '';
                   try {
-                    final value = jsonDecode(controller.text);
-                    if (value is Map<String, dynamic>) {
-                      controller.text = const JsonEncoder.withIndent('  ')
-                          .convert(normalizeSongFields(value));
-                    }
+                    final value = decodeSongJson(controller.text);
+                    controller.text = const JsonEncoder.withIndent('  ')
+                        .convert(
+                          normalizeSongFields(value, disabled: widget.disabled),
+                        );
                   } catch (_) {
                     /* Keep invalid syntax visible for correction. */
                   }
@@ -117,7 +119,7 @@ class _SongJsonState extends State<SongJsonPage> {
             ),
           ),
           Expanded(
-            child: TextButton(onPressed: confirm, child: const Text('确认')),
+            child: TextButton(onPressed: confirm, child: const Text('确定')),
           ),
         ],
       ),

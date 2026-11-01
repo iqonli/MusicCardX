@@ -1,5 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
+import 'package:flutter/gestures.dart';
+
+import 'metadata_prompt.dart';
+import 'editor_pages.dart';
+import 'music_share.dart';
+import 'cover_search_page.dart';
+
 import 'package:flutter/material.dart';
 
 import 'cover_search.dart';
@@ -11,17 +19,26 @@ class SongSearchPage extends StatefulWidget {
   final CardDocument document;
   final Future<void> Function() onSettings;
   final SongSearchClient? client;
+  final String? initialShareText;
+  final Future<void> Function(Map<String, dynamic>)? onFields;
+  final Future<void> Function(CoverAsset)? onCover;
+  final Future<bool> Function(CoverAsset)? onSaveCover;
   const SongSearchPage({
     super.key,
     required this.document,
     required this.onSettings,
     this.client,
+    this.initialShareText,
+    this.onFields,
+    this.onCover,
+    this.onSaveCover,
   });
   @override
   State<SongSearchPage> createState() => _SongSearchPageState();
 }
 
-class _SongSearchPageState extends State<SongSearchPage> {
+class _SongSearchPageState extends State<SongSearchPage>
+    with SingleTickerProviderStateMixin {
   late final client = widget.client ?? SongSearchClient();
   late final original = Map<String, dynamic>.from(widget.document.fields);
   late final title = TextEditingController(text: '${original['title'] ?? ''}');
@@ -30,9 +47,42 @@ class _SongSearchPageState extends State<SongSearchPage> {
   );
   late final album = TextEditingController(text: '${original['album'] ?? ''}');
   final form = GlobalKey<FormState>();
-  final candidates = <String, SongCandidate>{};
+  late final tabs = TabController(
+    length: 3,
+    vsync: this,
+    initialIndex: widget.initialShareText == null ? 0 : 2,
+  );
+  int lastTab = 0;
+  final traditionalCandidates = <String, SongCandidate>{},
+      linkCandidates = <String, SongCandidate>{};
+  Map<String, SongCandidate> get candidates =>
+      tabs.index == 2 ? linkCandidates : traditionalCandidates;
+  final linkStatuses = <String, String>{},
+      traditionalStatuses = <String, String>{};
+  Map<String, String> get statuses =>
+      tabs.index == 2 ? linkStatuses : traditionalStatuses;
+  final traditionalSelected = <String, String>{},
+      linkSelected = <String, String>{};
+  Map<String, String> get selected =>
+      tabs.index == 2 ? linkSelected : traditionalSelected;
+  late final aiControllers = {
+    for (final key in songSearchFields.keys)
+      key: TextEditingController(text: '${original[key] ?? ''}'),
+  };
+  final aiScroll = ScrollController();
+  final promptActionsKey = GlobalKey();
+  late final helpLink = TapGestureRecognizer()..onTap = showShareHelp;
+  final prompt = TextEditingController();
+  bool generated = false;
+  late final shareText = TextEditingController(
+    text: widget.initialShareText ?? '',
+  );
+  final resolver = MusicShareService();
+  final shareCovers = ShareCoverClient();
+  late final shareLoader = CoverLoader(shareCovers);
+  final shareResults = <ShareResult>[];
   final pending = <String>{};
-  final statuses = <String, String>{};
+
   CoverCancel? cancel;
   bool busy = false;
   String region = 'cn';
@@ -44,6 +94,16 @@ class _SongSearchPageState extends State<SongSearchPage> {
   @override
   void initState() {
     super.initState();
+    lastTab = tabs.index;
+    tabs.addListener(() {
+      if (lastTab != tabs.index) {
+        cancel?.cancel();
+        busy = false;
+        lastTab = tabs.index;
+        FocusManager.instance.primaryFocus?.unfocus();
+        setState(() {});
+      }
+    });
     region = '${widget.document.data['songSearchRegion'] ?? 'cn'}';
   }
 
@@ -51,6 +111,17 @@ class _SongSearchPageState extends State<SongSearchPage> {
   void dispose() {
     cancel?.cancel();
     client.close();
+    tabs.dispose();
+    prompt.dispose();
+    aiScroll.dispose();
+    helpLink.dispose();
+    shareText.dispose();
+    for (final c in aiControllers.values) {
+      c.dispose();
+    }
+    resolver.close();
+    shareLoader.clear();
+    shareCovers.close();
     title.dispose();
     artist.dispose();
     album.dispose();
@@ -134,7 +205,6 @@ class _SongSearchPageState extends State<SongSearchPage> {
     if (current()) setState(() => busy = false);
   }
 
-  final selected = <String, String>{};
   Future<void> editRegion() async {
     final controller = TextEditingController(text: region);
     final value = await showCardDialog<String>(
@@ -142,6 +212,7 @@ class _SongSearchPageState extends State<SongSearchPage> {
       builder: (ctx) => AlertDialog(
         title: const Text('区域代号'),
         content: TextField(
+          onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
           controller: controller,
           maxLength: 2,
           autofocus: true,
@@ -181,7 +252,7 @@ class _SongSearchPageState extends State<SongSearchPage> {
         fields[e.key] = e.value;
       }
     }
-    Navigator.pop(context, fields);
+    Navigator.pop(context, widget.document.cleanSongFields(fields));
   }
 
   Widget fieldFlow(String key, String label) {
@@ -262,6 +333,283 @@ class _SongSearchPageState extends State<SongSearchPage> {
     );
   }
 
+  Future<void> editAiJson() async {
+    final fields = {
+      ...original,
+      for (final e in aiControllers.entries) e.key: e.value.text,
+    };
+    final result = await showCardDialog<Map<String, dynamic>>(
+      context: context,
+      builder: (_) => SongJsonPage(
+        fields: fields,
+        disabled: widget.document.disabledSongFields,
+      ),
+    );
+    if (result == null || !mounted) return;
+    final clean = widget.document.cleanSongFields(result);
+    await widget.onFields?.call(clean);
+    if (!mounted) return;
+    setState(() {
+      original
+        ..clear()
+        ..addAll(clean);
+      for (final e in aiControllers.entries) {
+        e.value.text = '${clean[e.key] ?? ''}';
+      }
+    });
+  }
+
+  Widget aiBody() => LayoutBuilder(
+    builder: (context, bounds) => ListView(
+      controller: aiScroll,
+      padding: const EdgeInsets.all(16),
+      children: [
+        for (final e in songSearchFields.entries)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 14),
+            child: TextField(
+              onTapOutside: (_) =>
+                  FocusManager.instance.primaryFocus?.unfocus(),
+              controller: aiControllers[e.key],
+              decoration: InputDecoration(labelText: e.value),
+            ),
+          ),
+        // Keep enough space below the actions to align them to the viewport top.
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: generated ? bounds.maxHeight : 0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                key: promptActionsKey,
+                spacing: 8,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      setState(() {
+                        generated = true;
+                        prompt.text = metadataPrompt({
+                          ...original,
+                          for (final e in aiControllers.entries)
+                            if (!widget.document.disabledSongFields.contains(
+                              e.key,
+                            ))
+                              e.key: e.value.text,
+                        });
+                      });
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        final actions = promptActionsKey.currentContext;
+                        if (mounted && tabs.index == 1 && actions != null) {
+                          Scrollable.ensureVisible(
+                            actions,
+                            alignment: 0,
+                            duration: const Duration(milliseconds: 250),
+                          );
+                        }
+                      });
+                    },
+                    child: const Text('生成提示词'),
+                  ),
+                  if (generated)
+                    TextButton(
+                      onPressed: () =>
+                          Clipboard.setData(ClipboardData(text: prompt.text)),
+                      child: const Text('复制'),
+                    ),
+                  TextButton(
+                    onPressed: editAiJson,
+                    child: const Text('编辑歌曲信息JSON'),
+                  ),
+                ],
+              ),
+              if (generated) ...[
+                const Text('复制并发给你的AI，请开启联网搜索，复制AI的回答再回到此处，使用下面的按钮粘贴'),
+                const SizedBox(height: 12),
+                TextField(
+                  onTapOutside: (_) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
+                  controller: prompt,
+                  minLines: 10,
+                  maxLines: 24,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+  Future<void> parseShare() async {
+    cancel?.cancel();
+    final token = CoverCancel();
+    cancel = token;
+    setState(() {
+      busy = true;
+      linkCandidates.clear();
+      linkSelected.clear();
+      linkStatuses.clear();
+      shareResults.clear();
+    });
+    try {
+      final results = await resolver.resolve(shareText.text, token);
+      if (!mounted || token.cancelled) return;
+      setState(() {
+        shareResults.addAll(results);
+        for (final r in results) {
+          linkCandidates[r.candidate.key] = r.candidate;
+          linkStatuses[r.platform] =
+              '${results.where((x) => x.platform == r.platform).length}个候选';
+        }
+        linkSelected.addAll(
+          defaultShareSelection(linkCandidates.values, original),
+        );
+      });
+    } catch (e) {
+      if (mounted && !token.cancelled) {
+        setState(() => linkStatuses['解析'] = conciseError(e));
+      }
+    } finally {
+      if (mounted && identical(cancel, token)) setState(() => busy = false);
+    }
+  }
+
+  Future<void> viewShareCover() async {
+    final available = shareResults.where((r) => r.cover.isNotEmpty).toList();
+    if (available.isEmpty) return;
+    ShareResult choice = available.first;
+    if (available.length > 1) {
+      final result = await showCardDialog<ShareResult>(
+        context: context,
+        builder: (ctx) => SimpleDialog(
+          title: const Text('选择封面来源'),
+          children: [
+            for (final r in available)
+              SimpleDialogOption(
+                onPressed: () => Navigator.pop(ctx, r),
+                child: Text('${r.platform} ${r.candidate.song.title}'),
+              ),
+          ],
+        ),
+      );
+      if (result == null || !mounted) return;
+      choice = result;
+    }
+    final asset = await Navigator.push<CoverAsset>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CoverDetailPage(
+          candidate: choice.candidate.song,
+          loader: shareLoader,
+          previewSize: 150,
+          downloadSize: 1000,
+          askDownloadSize: true,
+          onSave: widget.onSaveCover ?? (_) async => false,
+        ),
+      ),
+    );
+    if (asset != null && mounted) {
+      await widget.onCover?.call(asset);
+    }
+  }
+
+  void showShareHelp() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => Scaffold(
+          appBar: AppBar(title: const Text('支持的解析链接')),
+          body: const SingleChildScrollView(
+            padding: EdgeInsets.all(20),
+            child: SelectableText(
+              '网易云：163cn.tv、163cn.link、music.163.com/song?id=2091914322\nQQ：c6.y.qq.com短链、y.qq.com/n/ryqq/songDetail/歌曲mid\n酷狗：m.kugou.com/share/song.html?chain=分享码、t1.kugou.com短链、带hash的歌曲链接。纯数字码不能唯一确定歌曲。\n酷我：m.kuwo.cn/yinyue/56102277、www.kuwo.cn/play_detail/歌曲ID\n波点：h5app.kuwo.cn/m/bodian/playMusic.html?musicId=歌曲ID；play.html?mvId=视频ID只提供视频信息。\n汽水：qishui.douyin.com/s/短链、music.douyin.com/qishui/share/track?track_id=歌曲ID\n可粘贴整段分享文字、Markdown和多个链接。部分字段可能未提供；解析后默认选中各项首个候选，点击✓才应用。封面尺寸0表示向源站请求最大版本，失败时有限回退，不放大伪造原图像素。',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget shareBody() => ListView(
+    padding: const EdgeInsets.all(16),
+    children: [
+      Text.rich(
+        TextSpan(
+          children: [
+            const TextSpan(text: '在音乐软件中点击分享>复制链接，并在此粘贴。当前支持$sharePlatforms，'),
+            TextSpan(
+              text: '点击此处',
+              recognizer: helpLink,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+            const TextSpan(text: '查看详细内容。你也可以在支持分享到其他应用的音乐软件中分享到MusicCardX。'),
+          ],
+        ),
+      ),
+      TextField(
+        onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+        controller: shareText,
+        minLines: 3,
+        maxLines: 8,
+        decoration: const InputDecoration(labelText: '分享内容'),
+      ),
+      Wrap(
+        spacing: 8,
+        children: [
+          TextButton(
+            onPressed: () async {
+              final data = await Clipboard.getData(Clipboard.kTextPlain);
+              if (mounted) shareText.text = data?.text ?? '';
+            },
+            child: const Text('粘贴'),
+          ),
+          TextButton(
+            onPressed: busy ? null : parseShare,
+            child: const Text('解析'),
+          ),
+          if (busy)
+            TextButton(
+              onPressed: () {
+                cancel?.cancel();
+                setState(() => busy = false);
+              },
+              child: const Text('取消'),
+            ),
+        ],
+      ),
+      if (busy) const LinearProgressIndicator(),
+      if (shareResults.any((r) => r.cover.isNotEmpty))
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            onPressed: viewShareCover,
+            child: const Text('查看封面'),
+          ),
+        ),
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final e in songSearchFields.entries) fieldFlow(e.key, e.value),
+          ],
+        ),
+      ),
+      for (final r in shareResults)
+        Text('${r.platform} ${r.warnings.join('；')}'),
+      for (final e in linkStatuses.entries) Text('${e.key} ${e.value}'),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     final sorted = candidates.values.toList()
@@ -272,149 +620,180 @@ class _SongSearchPageState extends State<SongSearchPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('在线搜索歌曲信息'),
+        bottom: TabBar(
+          controller: tabs,
+          tabs: const [
+            Tab(text: '传统爬爬'),
+            Tab(text: 'AI外包'),
+            Tab(text: '来自音乐软件'),
+          ],
+        ),
         actions: [
           IconButton(
             tooltip: '区域 ${region.toUpperCase()}',
             icon: const Icon(Icons.public),
-            onPressed: busy ? null : editRegion,
+            onPressed: busy || tabs.index != 0 ? null : editRegion,
           ),
           IconButton(
-            tooltip: '应用选中信息',
+            tooltip: tabs.index == 1 ? '返回' : '应用选中信息',
             icon: const Icon(Icons.check),
-            onPressed: busy ? null : applySelection,
+            onPressed: tabs.index == 1
+                ? () => Navigator.pop(context)
+                : busy
+                ? null
+                : applySelection,
           ),
         ],
       ),
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.all(16),
-              sliver: SliverToBoxAdapter(
-                child: Form(
-                  key: form,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFormField(
-                        controller: title,
-                        decoration: const InputDecoration(labelText: '标题（必填）'),
-                        textInputAction: TextInputAction.next,
-                        validator: (v) =>
-                            v == null || v.trim().isEmpty ? '请填写标题' : null,
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: artist,
-                        decoration: const InputDecoration(labelText: '艺术家（必填）'),
-                        textInputAction: TextInputAction.next,
-                        validator: (v) =>
-                            v == null || v.trim().isEmpty ? '请填写艺术家' : null,
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: album,
-                        decoration: const InputDecoration(labelText: '专辑（选填）'),
-                        onFieldSubmitted: (_) => unawaited(search()),
-                      ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          for (final e in SongSearchClient.sources.entries)
-                            FilterChip(
-                              label: Text(e.value),
-                              selected: enabled[e.key] == true,
-                              onSelected: busy
-                                  ? null
-                                  : (v) {
-                                      setState(() => enabled[e.key] = v);
-                                      widget
-                                              .document
-                                              .data['songSearch_${e.key}'] =
-                                          v;
-                                      unawaited(widget.onSettings());
+      body: tabs.index == 1
+          ? aiBody()
+          : tabs.index == 2
+          ? shareBody()
+          : GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+              child: CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding: const EdgeInsets.all(16),
+                    sliver: SliverToBoxAdapter(
+                      child: Form(
+                        key: form,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextFormField(
+                              onTapOutside: (_) =>
+                                  FocusManager.instance.primaryFocus?.unfocus(),
+                              controller: title,
+                              decoration: const InputDecoration(
+                                labelText: '标题（必填）',
+                              ),
+                              textInputAction: TextInputAction.next,
+                              validator: (v) => v == null || v.trim().isEmpty
+                                  ? '请填写标题'
+                                  : null,
+                            ),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              onTapOutside: (_) =>
+                                  FocusManager.instance.primaryFocus?.unfocus(),
+                              controller: artist,
+                              decoration: const InputDecoration(
+                                labelText: '艺术家（必填）',
+                              ),
+                              textInputAction: TextInputAction.next,
+                              validator: (v) => v == null || v.trim().isEmpty
+                                  ? '请填写艺术家'
+                                  : null,
+                            ),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              onTapOutside: (_) =>
+                                  FocusManager.instance.primaryFocus?.unfocus(),
+                              controller: album,
+                              decoration: const InputDecoration(
+                                labelText: '专辑（选填）',
+                              ),
+                              onFieldSubmitted: (_) => unawaited(search()),
+                            ),
+                            const SizedBox(height: 16),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: [
+                                for (final e
+                                    in SongSearchClient.sources.entries)
+                                  FilterChip(
+                                    label: Text(e.value),
+                                    selected: enabled[e.key] == true,
+                                    onSelected: busy
+                                        ? null
+                                        : (v) {
+                                            setState(() => enabled[e.key] = v);
+                                            widget
+                                                    .document
+                                                    .data['songSearch_${e.key}'] =
+                                                v;
+                                            unawaited(widget.onSettings());
+                                          },
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                TextButton(
+                                  onPressed: busy ? null : search,
+                                  child: const Text('搜索'),
+                                ),
+                                if (busy)
+                                  TextButton(
+                                    onPressed: () {
+                                      cancel?.cancel();
+                                      setState(() {
+                                        busy = false;
+                                        pending.clear();
+                                        statuses.updateAll(
+                                          (k, v) => v.contains('中') ? '已停止' : v,
+                                        );
+                                      });
                                     },
+                                    child: const Text('停止'),
+                                  ),
+                              ],
                             ),
-                        ],
+                            if (busy)
+                              const Padding(
+                                padding: EdgeInsets.only(top: 12),
+                                child: LinearProgressIndicator(),
+                              ),
+                            if (!busy && statuses.isNotEmpty && sorted.isEmpty)
+                              const Padding(
+                                padding: EdgeInsets.only(top: 16),
+                                child: Text('没有找到歌曲，可以调整标题、艺术家或搜索源。'),
+                              ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      Row(
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                    sliver: SliverToBoxAdapter(
+                      child: SingleChildScrollView(
+                        key: const ValueKey('song-field-flow'),
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            for (final e in songSearchFields.entries)
+                              fieldFlow(e.key, e.value),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                    sliver: SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextButton(
-                            onPressed: busy ? null : search,
-                            child: const Text('搜索'),
-                          ),
-                          if (busy)
-                            TextButton(
-                              onPressed: () {
-                                cancel?.cancel();
-                                setState(() {
-                                  busy = false;
-                                  pending.clear();
-                                  statuses.updateAll(
-                                    (k, v) => v.contains('中') ? '已停止' : v,
-                                  );
-                                });
-                              },
-                              child: const Text('停止'),
+                          for (final e in statuses.entries)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text(
+                                '${SongSearchClient.sources[e.key]} ${e.value}',
+                              ),
                             ),
                         ],
                       ),
-                      if (busy)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 12),
-                          child: LinearProgressIndicator(),
-                        ),
-                      if (!busy && statuses.isNotEmpty && sorted.isEmpty)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('没有找到歌曲，可以调整标题、艺术家或搜索源。'),
-                        ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-              sliver: SliverToBoxAdapter(
-                child: SingleChildScrollView(
-                  key: const ValueKey('song-field-flow'),
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (final e in songSearchFields.entries)
-                        fieldFlow(e.key, e.value),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (final e in statuses.entries)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: Text(
-                          '${SongSearchClient.sources[e.key]} ${e.value}',
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

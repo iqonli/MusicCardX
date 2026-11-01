@@ -1,0 +1,6 @@
+kugou 跳转平台不匹配
+bodian 平台未返回有效信息
+qq {title: 说了再见, artist: 周杰伦, album: 跨时代, date: 2010-05-18, totaltracks: 11, tracknumber: 2} [曲序若来自完整专辑列表，为列表排序推断；未知碟号不假设为1]
+kuwo {title: 晚风, artist: 伍佰 & China Blue, album: 泪桥, totaltracks: 12, tracknumber: 8} [曲序若来自完整专辑列表，为列表排序推断；未知碟号不假设为1]
+soda {title: 心墙, artist: 郭静, album: 在树上唱歌, date: 2009-05-22, totaltracks: 10, tracknumber: 3} [曲序若来自完整专辑列表，为列表排序推断；未知碟号不假设为1]
+netease {title: i miss your warm hands, artist: i don't like mirrors, album: Not How it's Supposed to be} [曲序若来自完整专辑列表，为列表排序推断；未知碟号不假设为1]

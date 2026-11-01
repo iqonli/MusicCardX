@@ -340,3 +340,22 @@ Iterable<SongCandidate> candidatesForSongField(
 ) => albumDependentFields.contains(key)
     ? candidates.where((c) => (c.fields['album'] ?? '').trim() == album.trim())
     : candidates;
+
+/// Select album first so its dependent fields use that album's candidates.
+Map<String, String> defaultShareSelection(
+  Iterable<SongCandidate> candidates,
+  Map<String, dynamic> original,
+) {
+  final result = <String, String>{};
+  for (final key in songSearchFields.keys) {
+    final album = result['album'] ?? '${original['album'] ?? ''}';
+    final options = rankSongField(
+      candidatesForSongField(candidates, key, album),
+      key,
+    );
+    if (options.isNotEmpty && options.first.value != '${original[key] ?? ''}') {
+      result[key] = options.first.value;
+    }
+  }
+  return result;
+}

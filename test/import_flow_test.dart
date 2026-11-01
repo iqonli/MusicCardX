@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:musiccardx/main.dart';
 import 'package:musiccardx/model.dart';
+import 'package:musiccardx/song_search_page.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,72 @@ void main() {
   tearDown(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(platform, null);
+  });
+  testWidgets('plain external text opens share tab without JSON replacement', (
+    t,
+  ) async {
+    var first = true;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(platform, (call) async {
+          if (call.method == 'takeIncoming' && first) {
+            first = false;
+            return {
+              'kind': 'json',
+              'text': '分享《测试》 https://music.163.com/song?id=1',
+            };
+          }
+          return null;
+        });
+    await t.pumpWidget(MusicCardX(CardDocument.fresh(), chinese));
+    await t.pumpAndSettle();
+    expect(find.text('替换当前歌曲信息？'), findsNothing);
+    expect(find.text('来自音乐软件'), findsOneWidget);
+    expect(find.text('解析'), findsOneWidget);
+    expect(
+      find.byWidgetPredicate(
+        (w) => w is EditableText && w.controller.text.startsWith('分享《测试》'),
+      ),
+      findsOneWidget,
+    );
+    await t.pumpWidget(const SizedBox());
+    await t.pumpAndSettle();
+    expect(t.takeException(), isNull);
+  });
+  testWidgets('new shares replace an open search page through the home route', (
+    t,
+  ) async {
+    final queue = Queue<Map<String, dynamic>>();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(platform, (call) async {
+          if (call.method == 'takeIncoming') {
+            return queue.isEmpty ? null : queue.removeFirst();
+          }
+          return null;
+        });
+    await t.pumpWidget(MusicCardX(CardDocument.fresh(), chinese));
+    await t.pumpAndSettle();
+    final dynamic editor = t.state(find.byType(Editor));
+    unawaited(editor.searchSongInformation() as Future<void>);
+    await t.pumpAndSettle();
+    for (final text in ['第一个分享', '第二个分享']) {
+      queue.add({'kind': 'json', 'text': text});
+      unawaited(editor.incoming() as Future<void>);
+      await t.pumpAndSettle();
+      expect(find.byType(SongSearchPage, skipOffstage: false), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is EditableText && w.controller.text == text,
+        ),
+        findsOneWidget,
+      );
+      expect(editor.receiving, false);
+    }
+    await t.pageBack();
+    await t.pumpAndSettle();
+    expect(find.byType(SongSearchPage, skipOffstage: false), findsNothing);
+    await t.pumpWidget(const SizedBox());
+    await t.pumpAndSettle();
+    expect(t.takeException(), isNull);
   });
   testWidgets('a share received during confirmation is handled after cancel', (
     t,
