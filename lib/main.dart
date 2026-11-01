@@ -385,6 +385,34 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
     await _preview();
   }
 
+  int? _oversizedConfirmedRevision;
+
+  Future<bool> confirmOversizedOutput(int width, int height) async {
+    if (_oversizedConfirmedRevision == revision) return true;
+    final result = await showCardDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('大尺寸图片警告'),
+        content: Text(
+          '当前输出尺寸为 ${width}×$height，共 ${width * height} 像素，已超过建议上限（单边 $maxOutputSide 像素或单张 $maxOutputPixels 像素）。\n\n继续生成可能占用大量内存，导致卡顿或应用崩溃。仍要继续吗？',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('取消'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('仍要继续'),
+          ),
+        ],
+      ),
+    );
+    if (result == true) _oversizedConfirmedRevision = revision;
+    return result == true;
+  }
+
   Future<void> _preview() async {
     await _fontsReady.future;
     if (!mounted || _fontStartupFailed) return;
@@ -400,6 +428,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
         CardDocument(deepCopy(doc.data)),
         cover: cover,
         scaleOverride: doc.n('exportScale', 1),
+        onOversizedOutput: confirmOversizedOutput,
       );
       if (!mounted || token != revision) {
         result.image.dispose();
@@ -461,7 +490,11 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
         ? rendered
         : null;
     final result = cached == null
-        ? await renderer.render(doc, cover: cover)
+        ? await renderer.render(
+            doc,
+            cover: cover,
+            onOversizedOutput: confirmOversizedOutput,
+          )
         : RenderedCard(
             cached.image.clone(),
             cached.size,
@@ -1952,6 +1985,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
           document: CardDocument(deepCopy(doc.data)),
           cover: cover,
           renderer: renderer,
+          onOversizedOutput: confirmOversizedOutput,
         ),
       ),
     );

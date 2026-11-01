@@ -23,7 +23,15 @@ class SongCandidate {
   final CoverCandidate song;
   final Map<String, String> fields;
   final String detailError;
-  const SongCandidate(this.song, this.fields, {this.detailError = ''});
+  final Map<String, double> fieldScores;
+  final Set<String> uncertainFields;
+  const SongCandidate(
+    this.song,
+    this.fields, {
+    this.detailError = '',
+    this.fieldScores = const {},
+    this.uncertainFields = const {},
+  });
   String get key => '${song.source}:${song.id}';
 }
 
@@ -294,7 +302,13 @@ class SongFieldOption {
   final String value;
   final double score;
   final int count;
-  const SongFieldOption(this.value, this.score, this.count);
+  final bool uncertain;
+  const SongFieldOption(
+    this.value,
+    this.score,
+    this.count, {
+    this.uncertain = false,
+  });
 }
 
 /// Repeated rows from the same source/track count once. A bounded bonus rewards
@@ -304,10 +318,15 @@ List<SongFieldOption> rankSongField(
   String key,
 ) {
   final groups = <String, Map<String, double>>{};
+  final certain = <String>{};
   for (final c in candidates) {
     final value = (c.fields[key] ?? '').trim();
     final group = groups.putIfAbsent(value, () => {});
-    group[c.key] = math.max(group[c.key] ?? 0, c.song.score.clamp(0, 100));
+    group[c.key] = math.max(
+      group[c.key] ?? 0,
+      (c.fieldScores[key] ?? c.song.score).clamp(0, 100),
+    );
+    if (!c.uncertainFields.contains(key)) certain.add(value);
   }
   final options = <SongFieldOption>[];
   for (final e in groups.entries) {
@@ -317,7 +336,14 @@ List<SongFieldOption> rankSongField(
     final quality = .85 * best + .15 * mean;
     final agreement = 1 - math.exp(-(scores.length - 1) / 2);
     final score = quality + (100 - quality) * .3 * agreement;
-    options.add(SongFieldOption(e.key, score, scores.length));
+    options.add(
+      SongFieldOption(
+        e.key,
+        score,
+        scores.length,
+        uncertain: !certain.contains(e.key),
+      ),
+    );
   }
   options.sort((a, b) {
     final c = b.score.compareTo(a.score);

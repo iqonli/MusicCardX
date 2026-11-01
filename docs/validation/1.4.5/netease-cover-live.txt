@@ -1,0 +1,1 @@
+{"scenario":"cover-search-163","results":[{"score":100.0,"coverProvided":true},{"score":48.514619883040936,"coverProvided":true},{"score":40.78947368421052,"coverProvided":true}],"acceptedExact100":true}

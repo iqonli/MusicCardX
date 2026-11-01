@@ -341,7 +341,7 @@ void main() {
     await t.tap(find.text('关于'));
     await t.pumpAndSettle();
     expect(find.byType(AboutPage), findsOneWidget);
-    expect(find.text('1.4.4'), findsOneWidget);
+    expect(find.text('1.4.5'), findsOneWidget);
     expect(find.text('作者：PerryDing (QQ: 34067513)'), findsOneWidget);
     await t.tap(find.text('打开Github'));
     await t.pump();

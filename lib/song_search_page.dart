@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'metadata_prompt.dart';
 import 'editor_pages.dart';
 import 'music_share.dart';
+import 'netease_share_fallback.dart';
 import 'cover_search_page.dart';
 
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class SongSearchPage extends StatefulWidget {
   final Future<void> Function() onSettings;
   final SongSearchClient? client;
   final String? initialShareText;
+  final MusicShareService? shareService;
+  final NeteaseShareFallback? shareFallback;
   final Future<void> Function(Map<String, dynamic>)? onFields;
   final Future<void> Function(CoverAsset)? onCover;
   final Future<bool> Function(CoverAsset)? onSaveCover;
@@ -29,6 +32,8 @@ class SongSearchPage extends StatefulWidget {
     required this.onSettings,
     this.client,
     this.initialShareText,
+    this.shareService,
+    this.shareFallback,
     this.onFields,
     this.onCover,
     this.onSaveCover,
@@ -77,7 +82,8 @@ class _SongSearchPageState extends State<SongSearchPage>
   late final shareText = TextEditingController(
     text: widget.initialShareText ?? '',
   );
-  final resolver = MusicShareService();
+  late final resolver = widget.shareService ?? MusicShareService();
+  late final shareFallback = widget.shareFallback ?? NeteaseShareFallback();
   final shareCovers = ShareCoverClient();
   late final shareLoader = CoverLoader(shareCovers);
   final shareResults = <ShareResult>[];
@@ -120,6 +126,7 @@ class _SongSearchPageState extends State<SongSearchPage>
       c.dispose();
     }
     resolver.close();
+    shareFallback.close();
     shareLoader.clear();
     shareCovers.close();
     title.dispose();
@@ -268,13 +275,14 @@ class _SongSearchPageState extends State<SongSearchPage>
       String text,
       double score, {
       bool keep = false,
+      bool uncertain = false,
     }) {
       final active = keep ? !selected.containsKey(key) : selected[key] == value;
       final color = Theme.of(context).colorScheme.primary;
       final background = Color.lerp(
         Colors.white,
         color,
-        .08 + .52 * score / 100,
+        (.08 + .52 * score / 100) * (uncertain ? .55 : 1),
       )!;
       return Padding(
         padding: const EdgeInsets.only(right: 8),
@@ -325,8 +333,11 @@ class _SongSearchPageState extends State<SongSearchPage>
             if (!(bestMatches && option.value == old))
               bubble(
                 option.value,
-                option.value.isEmpty ? '未提供' : option.value,
+                option.value.isEmpty
+                    ? '未提供'
+                    : '${option.value}${option.uncertain ? ' 存疑' : ''}',
                 option.score,
+                uncertain: option.uncertain,
               ),
         ],
       ),
@@ -457,7 +468,10 @@ class _SongSearchPageState extends State<SongSearchPage>
       shareResults.clear();
     });
     try {
-      final results = await resolver.resolve(shareText.text, token);
+      final parsed = await resolver.resolve(shareText.text, token);
+      final results = await Future.wait(
+        parsed.map((r) => shareFallback.complete(r, region, token)),
+      );
       if (!mounted || token.cancelled) return;
       setState(() {
         shareResults.addAll(results);

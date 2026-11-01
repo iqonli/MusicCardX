@@ -41,6 +41,20 @@ class _Text {
   }
 }
 
+const int maxOutputSide = 32768;
+const int maxOutputPixels = 100000000;
+
+bool exceedsOutputLimits(int width, int height) =>
+    width > maxOutputSide ||
+    height > maxOutputSide ||
+    width * height > maxOutputPixels;
+
+class RenderCancelledException implements Exception {
+  const RenderCancelledException();
+  @override
+  String toString() => '已取消大尺寸图片生成。';
+}
+
 class CardRenderer {
   final ChineseConverter chinese;
   final FontRegistry fonts;
@@ -49,6 +63,7 @@ class CardRenderer {
     CardDocument doc, {
     ui.Image? cover,
     double? scaleOverride,
+    Future<bool> Function(int width, int height)? onOversizedOutput,
   }) async {
     final watch = Stopwatch()..start();
     final ly = doc.lyrics;
@@ -212,11 +227,13 @@ class CardRenderer {
             44,
       );
       final pixelW = (width * scale).ceil(), pixelH = (400 * scale).ceil();
-      // Reject oversized requests before native allocation; never silently lower export quality.
-      if (pixelW > 16384 || pixelH > 16384 || pixelW * pixelH > 32000000) {
-        throw StateError(
-          '输出 $pixelW×$pixelH 超过单张 3200 万像素／边长 16384 限制，请减小倍率、字号或歌词宽度。',
-        );
+      // Warn before native allocation. The user may explicitly accept the
+      // memory cost; output quality is never silently reduced.
+      if (exceedsOutputLimits(pixelW, pixelH)) {
+        if (onOversizedOutput == null ||
+            !await onOversizedOutput(pixelW, pixelH)) {
+          throw const RenderCancelledException();
+        }
       }
       final recorder = ui.PictureRecorder(), canvas = Canvas(recorder);
       canvas.scale(scale);

@@ -131,11 +131,13 @@ class SeedFair extends StatefulWidget {
   final CardDocument document;
   final ui.Image? cover;
   final CardRenderer renderer;
+  final Future<bool> Function(int width, int height) onOversizedOutput;
   const SeedFair({
     super.key,
     required this.document,
     required this.cover,
     required this.renderer,
+    required this.onOversizedOutput,
   });
   @override
   State<SeedFair> createState() => _SeedFairState();
@@ -144,7 +146,7 @@ class SeedFair extends StatefulWidget {
 class _SeedFairState extends State<SeedFair> {
   final images = <RenderedCard>[];
   final scroll = ScrollController();
-  bool busy = false, alive = true;
+  bool busy = false, alive = true, oversizedConfirmed = false;
   String? error;
   @override
   void initState() {
@@ -153,6 +155,13 @@ class _SeedFairState extends State<SeedFair> {
     scroll.addListener(() {
       if (scroll.position.extentAfter < 500) load();
     });
+  }
+
+  Future<bool> confirmOversized(int width, int height) async {
+    if (oversizedConfirmed) return true;
+    final confirmed = await widget.onOversizedOutput(width, height);
+    if (confirmed) oversizedConfirmed = true;
+    return confirmed;
   }
 
   Future<void> load() async {
@@ -166,6 +175,7 @@ class _SeedFairState extends State<SeedFair> {
           doc,
           cover: widget.cover,
           scaleOverride: widget.document.n('exportScale', 1),
+          onOversizedOutput: confirmOversized,
         );
         if (!alive) {
           image.image.dispose();
@@ -243,7 +253,11 @@ class _SeedFairState extends State<SeedFair> {
           onLongPress: () async {
             final doc = CardDocument(deepCopy(widget.document.data));
             doc.data['seed'] = image.seed;
-            final full = await widget.renderer.render(doc, cover: widget.cover);
+            final full = await widget.renderer.render(
+              doc,
+              cover: widget.cover,
+              onOversizedOutput: confirmOversized,
+            );
             if (!context.mounted) {
               full.image.dispose();
               return;
