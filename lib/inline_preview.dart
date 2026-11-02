@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class InlinePreview extends StatefulWidget {
   final ui.Image image;
@@ -30,26 +31,33 @@ class _InlinePreviewState extends State<InlinePreview> {
   Widget build(BuildContext context) => LayoutBuilder(
     builder: (c, b) {
       size = b.biggest;
-      return ClipRect(
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: RawGestureDetector(
+      return SizedBox(
+        width: b.maxWidth,
+        height: b.maxHeight,
+        child: PreviewHitBoundary(
+          child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            gestures: {
-              _TwoFingerGesture:
-                  GestureRecognizerFactoryWithHandlers<_TwoFingerGesture>(
-                    _TwoFingerGesture.new,
-                    (r) => r.onTransform = transform,
+            onTap: widget.onTap,
+            child: RawGestureDetector(
+              behavior: HitTestBehavior.opaque,
+              gestures: {
+                _TwoFingerGesture:
+                    GestureRecognizerFactoryWithHandlers<_TwoFingerGesture>(
+                      _TwoFingerGesture.new,
+                      (r) => r.onTransform = transform,
+                    ),
+              },
+              child: Transform.translate(
+                offset: offset,
+                transformHitTests: false,
+                child: Transform.scale(
+                  scale: scale,
+                  transformHitTests: false,
+                  child: RawImage(
+                    image: widget.image,
+                    fit: BoxFit.contain,
+                    filterQuality: FilterQuality.high,
                   ),
-            },
-            child: Transform.translate(
-              offset: offset,
-              child: Transform.scale(
-                scale: scale,
-                child: RawImage(
-                  image: widget.image,
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.high,
                 ),
               ),
             ),
@@ -131,4 +139,17 @@ class _TwoFingerGesture extends OneSequenceGestureRecognizer {
 
   @override
   String get debugDescription => 'two-finger preview';
+}
+
+/// Paint may overflow, while pointer hit testing always stays in the layout box.
+class PreviewHitBoundary extends SingleChildRenderObjectWidget {
+  const PreviewHitBoundary({super.key, required super.child});
+  @override
+  RenderObject createRenderObject(BuildContext context) => _PreviewHitBox();
+}
+
+class _PreviewHitBox extends RenderProxyBox {
+  @override
+  bool hitTest(BoxHitTestResult result, {required Offset position}) =>
+      size.contains(position) && super.hitTest(result, position: position);
 }

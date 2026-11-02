@@ -31,7 +31,7 @@ android {
         // You can force using the value of versionCode by specifying the `-P force-version-code-ignoring-abi=true`
         // flag during build.
         versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionName = "1.4.7"
     }
 
     signingConfigs { create("musiccardx") { if(releaseKey.isNotEmpty()) { storeFile=rootProject.file(releaseKey.getProperty("storeFile"));storePassword=releaseKey.getProperty("storePassword");keyAlias=releaseKey.getProperty("keyAlias");keyPassword=releaseKey.getProperty("keyPassword") } } }

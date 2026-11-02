@@ -58,7 +58,7 @@ class CardDocument {
   }
 
   factory CardDocument.fresh() => CardDocument({
-    'musicCardXVersion': '1.4.6',
+    'musicCardXVersion': '1.4.7',
     'styleSchemaVersion': 16,
     'musicCardXSchemaVersion': 1,
     'exportScale': 1.0,
@@ -84,6 +84,8 @@ class CardDocument {
     'songSearch_qq': true,
     'songSearchRegion': 'cn',
     'metadataPromptTemplate': defaultMetadataPromptTemplate,
+    'intentActions': <Map<String, dynamic>>[],
+    'intentAutoCopy': true,
     'disabledSongFields': <String>[],
     'fontPreferences': <String, dynamic>{
       'mode': 'local',
@@ -199,7 +201,7 @@ class CardDocument {
       if (!ccModes.containsKey(d.data[k])) d.data[k] = 'off';
     }
     d.data['textRenderingHint'] = 4;
-    d.data['musicCardXVersion'] = '1.4.6';
+    d.data['musicCardXVersion'] = '1.4.7';
     if (!raw.containsKey('coverShape') && d.n('coverCornerRadius') == 180) {
       d.data['coverShape'] = 'ellipse';
     }

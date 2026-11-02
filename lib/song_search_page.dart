@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 
 import 'metadata_prompt.dart';
+import 'intent_actions.dart';
 import 'editor_pages.dart';
 import 'music_share.dart';
 import 'netease_share_fallback.dart';
@@ -78,7 +79,9 @@ class _SongSearchPageState extends State<SongSearchPage>
   final promptActionsKey = GlobalKey();
   late final helpLink = TapGestureRecognizer()..onTap = showShareHelp;
   final prompt = TextEditingController();
+  final promptFocus = FocusNode();
   bool generated = false;
+  bool promptExpanded = false;
   Map<String, String>? generatedInputs;
   Map<String, String> get currentAiInputs => {
     for (final e in aiControllers.entries) e.key: e.value.text,
@@ -189,6 +192,7 @@ class _SongSearchPageState extends State<SongSearchPage>
     cancel?.cancel();
     client.close();
     tabs.dispose();
+    promptFocus.dispose();
     prompt.dispose();
     aiScroll.dispose();
     helpLink.dispose();
@@ -441,6 +445,30 @@ class _SongSearchPageState extends State<SongSearchPage>
     });
   }
 
+  void generatePrompt() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    setState(() {
+      generated = true;
+      generatedInputs = currentAiInputs;
+      prompt.text = metadataPrompt({
+        ...original,
+        for (final e in aiControllers.entries)
+          if (!widget.document.disabledSongFields.contains(e.key))
+            e.key: e.value.text,
+      }, template: widget.document.data['metadataPromptTemplate'] as String?);
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final actions = promptActionsKey.currentContext;
+      if (mounted && tabs.index == 1 && actions != null) {
+        Scrollable.ensureVisible(
+          actions,
+          alignment: 0,
+          duration: const Duration(milliseconds: 250),
+        );
+      }
+    });
+  }
+
   Widget aiBody() => LayoutBuilder(
     builder: (context, bounds) => ListView(
       controller: aiScroll,
@@ -464,81 +492,113 @@ class _SongSearchPageState extends State<SongSearchPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Wrap(
+              TextButton(
                 key: promptActionsKey,
+                onPressed: editAiJson,
+                child: const Text('编辑歌曲信息JSON'),
+              ),
+              Wrap(
                 spacing: 8,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      setState(() {
-                        generated = true;
-                        generatedInputs = currentAiInputs;
-                        prompt.text = metadataPrompt(
-                          {
-                            ...original,
-                            for (final e in aiControllers.entries)
-                              if (!widget.document.disabledSongFields.contains(
-                                e.key,
-                              ))
-                                e.key: e.value.text,
-                          },
-                          template:
-                              widget.document.data['metadataPromptTemplate']
-                                  as String?,
-                        );
-                      });
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        final actions = promptActionsKey.currentContext;
-                        if (mounted && tabs.index == 1 && actions != null) {
-                          Scrollable.ensureVisible(
-                            actions,
-                            alignment: 0,
-                            duration: const Duration(milliseconds: 250),
-                          );
-                        }
-                      });
-                    },
+                    onPressed: generatePrompt,
                     child: const Text('生成提示词'),
                   ),
                   if (generated)
                     TextButton(
                       onPressed: () =>
                           Clipboard.setData(ClipboardData(text: prompt.text)),
-                      child: const Text('复制'),
+                      child: const Text('复制提示词'),
                     ),
                   TextButton(
-                    onPressed: editAiJson,
-                    child: const Text('编辑歌曲信息JSON'),
+                    onPressed: () async {
+                      generatePrompt();
+                      await Clipboard.setData(ClipboardData(text: prompt.text));
+                    },
+                    child: const Text('生成并复制'),
                   ),
                 ],
               ),
-              if (generated) ...[
-                const Text(
-                  '复制后并发给你的AI，强烈建议开启深度思考、联网搜索，否则可能导致AI编造信息。复制AI的回答后，点击“编辑歌曲复制JSON”并粘贴。',
+              if (generated)
+                IntentActionsBar(
+                  actions: (widget.document.data['intentActions'] as List)
+                      .map((e) => Map<String, dynamic>.from(e as Map))
+                      .toList(),
+                  prompt: () => prompt.text,
+                  autoCopy: widget.document.data['intentAutoCopy'] != false,
+                  onAutoCopy: (value) {
+                    setState(
+                      () => widget.document.data['intentAutoCopy'] = value,
+                    );
+                    unawaited(widget.onSettings());
+                  },
+                  onSave: (items) async {
+                    setState(
+                      () => widget.document.data['intentActions'] = items,
+                    );
+                    await widget.onSettings();
+                  },
                 ),
-                const SizedBox(height: 12),
-                TextField(
-                  onTapOutside: (_) =>
-                      FocusManager.instance.primaryFocus?.unfocus(),
-                  controller: prompt,
-                  minLines: 10,
-                  maxLines: 24,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    enabledBorder: promptStale
-                        ? const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red, width: 2),
-                          )
-                        : null,
-                    focusedBorder: promptStale
-                        ? const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red, width: 2),
-                          )
-                        : null,
-                  ),
+              if (generated) ...[
+                const SizedBox(height: 8),
+                Stack(
+                  children: [
+                    TextField(
+                      onTapOutside: (_) =>
+                          FocusManager.instance.primaryFocus?.unfocus(),
+                      controller: prompt,
+                      focusNode: promptFocus,
+                      minLines: promptExpanded ? 10 : 1,
+                      maxLines: promptExpanded ? 24 : 1,
+                      decoration: InputDecoration(
+                        labelText: '生成的提示词',
+                        contentPadding: const EdgeInsets.fromLTRB(
+                          12,
+                          16,
+                          52,
+                          16,
+                        ),
+                        border: const OutlineInputBorder(),
+                        enabledBorder: promptStale
+                            ? const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 2,
+                                ),
+                              )
+                            : null,
+                        focusedBorder: promptStale
+                            ? const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 2,
+                                ),
+                              )
+                            : null,
+                      ),
+                    ),
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: IconButton(
+                        tooltip: promptExpanded ? '缩小' : '放大',
+                        icon: Icon(
+                          promptExpanded
+                              ? Icons.close_fullscreen
+                              : Icons.open_in_full,
+                        ),
+                        onPressed: () =>
+                            setState(() => promptExpanded = !promptExpanded),
+                      ),
+                    ),
+                  ],
                 ),
               ],
+              const SizedBox(height: 12),
+              const Text(
+                '将搜索歌曲信息的任务外包给你的AI。填写已知信息，点击生成提示词、复制，发给你的AI。可以使用自定义快捷方式一键启动APP，需提前配置。强烈建议开启深度思考、联网搜索，否则AI可能编造信息。复制AI的回答，点击“编辑歌曲复制JSON”并粘贴。',
+              ),
+              const SizedBox(height: 12),
             ],
           ),
         ),

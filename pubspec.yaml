@@ -1,7 +1,7 @@
 name: musiccardx
 description: MusicCardX Android card editor, ported from MusicCard.
 publish_to: none
-version: 1.4.6+23
+version: 1.4.7+30
 environment:
   sdk: '>=3.13.0 <4.0.0'
 dependencies:
@@ -27,6 +27,7 @@ flutter:
   uses-material-design: true
   assets:
     - LICENSE
+    - LICENSES/GPL-3.0-only.txt
     - assets/defaults.json
     - assets/opencc.json
     - assets/licenses/

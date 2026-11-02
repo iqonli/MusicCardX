@@ -11,6 +11,30 @@ Map<String, dynamic> normalizeConfiguration(Map<String, dynamic> raw) {
       if (e.key is! String || !template.containsKey(e.key)) continue;
       final key = e.key as String, v = e.value, expected = template[key];
       if (v == null) continue;
+      if (key == 'intentActions' && v is List) {
+        out[key] = [
+          for (final item in v)
+            if (item is Map &&
+                [
+                  'name',
+                  'component',
+                  'action',
+                  'mime',
+                  'parameters',
+                ].every((k) => item[k] is String))
+              {
+                for (final k in [
+                  'name',
+                  'component',
+                  'action',
+                  'mime',
+                  'parameters',
+                ])
+                  k: item[k],
+              },
+        ];
+        continue;
+      }
       if (key == 'letterSpacing') {
         final n = v is num
             ? v

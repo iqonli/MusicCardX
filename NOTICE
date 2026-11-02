@@ -2,7 +2,9 @@ MusicCardX
 Copyright (C) 2026 PerryDing / IQ Online Studio
 SPDX-License-Identifier: LGPL-3.0-or-later
 
-本项目的完整许可证正文只维护根目录LICENSE一份，构建时作为Flutter资源打包。
+本项目采用LGPL-3.0-or-later。LICENSE保存未经修改的LGPLv3正文；
+LICENSES/GPL-3.0-only.txt保存其引用的GPLv3正文；COPYRIGHT保存项目版权声明。
+两份许可证正文均打包进应用内Licenses。
 
 IQ Online Studio内部项目
 - MusicCard：https://github.com/iqonli/MusicCard，LGPL-3.0-or-later。

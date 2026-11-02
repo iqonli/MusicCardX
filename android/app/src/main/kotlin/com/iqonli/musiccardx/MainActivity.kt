@@ -81,6 +81,9 @@ class MainActivity:FlutterActivity() {
   private fun work(result:MethodChannel.Result,task:()->Any?){io.execute {val r=runCatching(task);runOnUiThread {r.fold(result::success){result.error("MCX_IO",it.message,null)}}}}
   private fun call(call:MethodCall,result:MethodChannel.Result){
     try {when(call.method){
+      "catalogProgress" -> result.success(mapOf("loaded" to ActivityCatalog.loaded.get(), "total" to ActivityCatalog.total.get()))
+      "catalogLoad", "catalogApps", "catalogActivities", "catalogSearch", "catalogIcon" -> work(result) { ActivityCatalog.read(this, call.method, call.arguments as? Map<*, *> ?: emptyMap<String, Any>()) }
+      "textActions", "actionPermissions", "actionPermissionSettings", "launchAction" -> result.success(IntentActions.handle(this, call.method, call.arguments as? Map<*, *> ?: emptyMap<String, Any>()))
       "maintainStorage"->work(result){maintainStorage();null}
       "releaseIncoming"->work(result){storage.release(checkNotNull(call.argument<String>("path")));maintainStorage();null}
       "openUrl"->{val uri=Uri.parse(checkNotNull(call.argument<String>("url")));require(uri.scheme=="https" && !uri.host.isNullOrEmpty());startActivity(Intent(Intent.ACTION_VIEW,uri));result.success(null)}

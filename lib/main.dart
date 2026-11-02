@@ -61,6 +61,7 @@ void main() async {
   LicenseRegistry.addLicense(() async* {
     for (final entry in <String, String>{
       'MusicCardX / MusicCard': 'LICENSE',
+      'GNU GPLv3 (incorporated by LGPLv3)': 'LICENSES/GPL-3.0-only.txt',
       'IQ Online Studio (ezCD / AutoCoverDownTool)':
           'assets/licenses/IQ-Online-Studio-MIT.txt',
       'opencc-js': 'assets/licenses/opencc-js-MIT.txt',
@@ -395,7 +396,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
       builder: (dialogContext) => AlertDialog(
         title: const Text('大尺寸图片警告'),
         content: Text(
-          '当前输出尺寸为 ${width}×$height，共 ${width * height} 像素，已超过建议上限（单边 $maxOutputSide 像素或单张 $maxOutputPixels 像素）。\n\n继续生成可能占用大量内存，导致卡顿或应用崩溃。仍要继续吗？',
+          '当前输出尺寸为 $width×$height，共 ${width * height} 像素，已超过建议上限（单边 $maxOutputSide 像素或单张 $maxOutputPixels 像素）。\n\n继续生成可能占用大量内存，导致卡顿或应用崩溃。仍要继续吗？',
         ),
         actions: [
           TextButton(
@@ -1106,7 +1107,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
     if (result == null || !mounted) return;
     final sample = mapv(doc.styles['titleValue']);
     if (result == 'weight') {
-      if (!await pickWeight(sample)) return;
+      if (!await pickWeight(sample, project: '整列字重')) return;
     } else if (result == 'font') {
       if (!await pickFont(sample)) return;
     } else if (result == 'bold' || result == 'italic') {
@@ -2071,7 +2072,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
             : effectiveWeight(FontRepository.instance.lookup('${s['font']}')!))}',
     () => pickWeight(s),
   );
-  Future<bool> pickWeight(Map<String, dynamic> s) async {
+  Future<bool> pickWeight(Map<String, dynamic> s, {String? project}) async {
     final repo = FontRepository.instance;
     await repo.init();
     final row = repo.lookup('${s['font'] ?? ''}');
@@ -2101,6 +2102,11 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
     final result = await showCardDialog<int>(
       context: context,
       builder: (_) => WeightDialog(
+        title:
+            project ??
+            (identical(s, doc.lyrics)
+                ? '歌词字重'
+                : '${doc.styles.entries.where((e) => identical(e.value, s)).map((e) => styleLabels[e.key] ?? e.key).firstOrNull ?? '所选项目'}字重'),
         value: value,
         min: min,
         max: max,
@@ -2752,6 +2758,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
           ],
         ),
         body: Stack(
+          clipBehavior: Clip.none,
           children: [
             Column(
               children: [
@@ -2759,6 +2766,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
                 Expanded(
                   child: SingleChildScrollView(
                     key: PageStorageKey('page-$tab'),
+                    clipBehavior: Clip.none,
                     child: Column(
                       children: [
                         if (!pinned && tab != 2) preview(),
@@ -2802,41 +2810,44 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
               ),
           ],
         ),
-        bottomNavigationBar: SafeArea(
-          top: false,
-          child: SizedBox(
-            key: const ValueKey('bottom-tabs'),
-            height: kBottomNavigationBarHeight,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final e in {0: '输入', 1: '工作台', 2: '设置'}.entries)
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        commitInput();
-                        setState(() => tab = e.key);
-                      },
-                      style: TextButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        foregroundColor: tab == e.key
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.black54,
-                        textStyle: TextStyle(
-                          fontSize: 13,
-                          fontFamily: uiFamily ?? 'Roboto',
-                          fontWeight: tab == e.key
-                              ? FontWeight.w700
-                              : FontWeight.w400,
+        bottomNavigationBar: ColoredBox(
+          color: Colors.white,
+          child: SafeArea(
+            top: false,
+            child: SizedBox(
+              key: const ValueKey('bottom-tabs'),
+              height: kBottomNavigationBarHeight,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (final e in {0: '输入', 1: '工作台', 2: '设置'}.entries)
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          commitInput();
+                          setState(() => tab = e.key);
+                        },
+                        style: TextButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          foregroundColor: tab == e.key
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.black54,
+                          textStyle: TextStyle(
+                            fontSize: 13,
+                            fontFamily: uiFamily ?? 'Roboto',
+                            fontWeight: tab == e.key
+                                ? FontWeight.w700
+                                : FontWeight.w400,
+                          ),
                         ),
+                        child: Text(e.value),
                       ),
-                      child: Text(e.value),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

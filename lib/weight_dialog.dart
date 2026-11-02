@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'font_style.dart';
 
 class WeightDialog extends StatefulWidget {
+  final String title;
   final double value, min, max;
   final bool variable;
   final List<Map<String, dynamic>> family;
   final List<int> choices;
   const WeightDialog({
     super.key,
+    this.title = '字重',
     required this.value,
     required this.min,
     required this.max,
@@ -126,7 +128,7 @@ class _WeightState extends State<WeightDialog> {
   late int value = widget.value.round();
   @override
   Widget build(BuildContext context) => AlertDialog(
-    title: const Text('字重'),
+    title: Text(widget.title),
     content: WeightControl(
       value: widget.value,
       min: widget.min,
