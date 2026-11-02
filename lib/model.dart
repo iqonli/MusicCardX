@@ -1,3 +1,4 @@
+import 'metadata_prompt.dart';
 import 'fonts.dart';
 import 'hex_text.dart';
 import 'font_style.dart';
@@ -57,7 +58,7 @@ class CardDocument {
   }
 
   factory CardDocument.fresh() => CardDocument({
-    'musicCardXVersion': '1.4.5',
+    'musicCardXVersion': '1.4.6',
     'styleSchemaVersion': 16,
     'musicCardXSchemaVersion': 1,
     'exportScale': 1.0,
@@ -82,6 +83,7 @@ class CardDocument {
     'songSearch_appleweb': false,
     'songSearch_qq': true,
     'songSearchRegion': 'cn',
+    'metadataPromptTemplate': defaultMetadataPromptTemplate,
     'disabledSongFields': <String>[],
     'fontPreferences': <String, dynamic>{
       'mode': 'local',
@@ -197,7 +199,7 @@ class CardDocument {
       if (!ccModes.containsKey(d.data[k])) d.data[k] = 'off';
     }
     d.data['textRenderingHint'] = 4;
-    d.data['musicCardXVersion'] = '1.4.5';
+    d.data['musicCardXVersion'] = '1.4.6';
     if (!raw.containsKey('coverShape') && d.n('coverCornerRadius') == 180) {
       d.data['coverShape'] = 'ellipse';
     }

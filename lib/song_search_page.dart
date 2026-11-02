@@ -79,6 +79,72 @@ class _SongSearchPageState extends State<SongSearchPage>
   late final helpLink = TapGestureRecognizer()..onTap = showShareHelp;
   final prompt = TextEditingController();
   bool generated = false;
+  Map<String, String>? generatedInputs;
+  Map<String, String> get currentAiInputs => {
+    for (final e in aiControllers.entries) e.key: e.value.text,
+  };
+  bool get promptStale =>
+      generatedInputs != null &&
+      aiControllers.entries.any((e) => generatedInputs![e.key] != e.value.text);
+
+  Future<void> editPromptTemplate() async {
+    final input = TextEditingController(
+      text:
+          widget.document.data['metadataPromptTemplate'] as String? ??
+          defaultMetadataPromptTemplate,
+    );
+    final saved = await showCardDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('修改提示词模板'),
+        content: SizedBox(
+          width: 560,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SelectableText(
+                  '已有信息请使用{{filled_fields_json}}或%filled%占位，将自动替换。',
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: input,
+                  minLines: 8,
+                  maxLines: 18,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => input.text = defaultMetadataPromptTemplate,
+            child: const Text('恢复默认'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('取消'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('保存'),
+          ),
+        ],
+      ),
+    );
+    if (saved == true && mounted) {
+      widget.document.data['metadataPromptTemplate'] = input.text;
+      await widget.onSettings();
+    }
+    // The route's closing transition may still use its text controller.
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    input.dispose();
+  }
+
   late final shareText = TextEditingController(
     text: widget.initialShareText ?? '',
   );
@@ -100,6 +166,11 @@ class _SongSearchPageState extends State<SongSearchPage>
   @override
   void initState() {
     super.initState();
+    for (final c in aiControllers.values) {
+      c.addListener(() {
+        if (mounted) setState(() {});
+      });
+    }
     lastTab = tabs.index;
     tabs.addListener(() {
       if (lastTab != tabs.index) {
@@ -402,14 +473,20 @@ class _SongSearchPageState extends State<SongSearchPage>
                       FocusManager.instance.primaryFocus?.unfocus();
                       setState(() {
                         generated = true;
-                        prompt.text = metadataPrompt({
-                          ...original,
-                          for (final e in aiControllers.entries)
-                            if (!widget.document.disabledSongFields.contains(
-                              e.key,
-                            ))
-                              e.key: e.value.text,
-                        });
+                        generatedInputs = currentAiInputs;
+                        prompt.text = metadataPrompt(
+                          {
+                            ...original,
+                            for (final e in aiControllers.entries)
+                              if (!widget.document.disabledSongFields.contains(
+                                e.key,
+                              ))
+                                e.key: e.value.text,
+                          },
+                          template:
+                              widget.document.data['metadataPromptTemplate']
+                                  as String?,
+                        );
                       });
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         final actions = promptActionsKey.currentContext;
@@ -437,7 +514,9 @@ class _SongSearchPageState extends State<SongSearchPage>
                 ],
               ),
               if (generated) ...[
-                const Text('复制并发给你的AI，请开启联网搜索，复制AI的回答再回到此处，使用下面的按钮粘贴'),
+                const Text(
+                  '复制后并发给你的AI，强烈建议开启深度思考、联网搜索，否则可能导致AI编造信息。复制AI的回答后，点击“编辑歌曲复制JSON”并粘贴。',
+                ),
                 const SizedBox(height: 12),
                 TextField(
                   onTapOutside: (_) =>
@@ -445,8 +524,18 @@ class _SongSearchPageState extends State<SongSearchPage>
                   controller: prompt,
                   minLines: 10,
                   maxLines: 24,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    enabledBorder: promptStale
+                        ? const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          )
+                        : null,
+                    focusedBorder: promptStale
+                        ? const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          )
+                        : null,
                   ),
                 ),
               ],
@@ -643,11 +732,18 @@ class _SongSearchPageState extends State<SongSearchPage>
           ],
         ),
         actions: [
-          IconButton(
-            tooltip: '区域 ${region.toUpperCase()}',
-            icon: const Icon(Icons.public),
-            onPressed: busy || tabs.index != 0 ? null : editRegion,
-          ),
+          if (tabs.index == 0)
+            IconButton(
+              tooltip: '区域 ${region.toUpperCase()}',
+              icon: const Icon(Icons.public),
+              onPressed: busy ? null : editRegion,
+            ),
+          if (tabs.index == 1)
+            IconButton(
+              tooltip: '修改提示词模板',
+              icon: const Icon(Icons.settings),
+              onPressed: editPromptTemplate,
+            ),
           IconButton(
             tooltip: tabs.index == 1 ? '返回' : '应用选中信息',
             icon: const Icon(Icons.check),
