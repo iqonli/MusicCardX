@@ -237,7 +237,7 @@ void main() {
     await t.ensureVisible(find.text('生成提示词'));
     await t.tap(find.text('生成提示词'));
     await t.pumpAndSettle();
-    expect(find.text('复制'), findsOneWidget);
+    expect(find.text('复制提示词'), findsOneWidget);
     final fields = t.widgetList<TextField>(find.byType(TextField));
     expect(
       fields.any((f) => f.controller?.text.contains('用户标题') ?? false),

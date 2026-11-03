@@ -178,11 +178,17 @@ void main() {
     noCover.image.dispose();
     cover.dispose();
   });
-  test('oversized output is rejected before bitmap allocation', () async {
-    final d = CardDocument.fresh();
-    d.styles['titleValue']['text'] = 'x' * 4000;
-    expect(CardRenderer(chinese, FontRegistry()).render(d), throwsStateError);
-  });
+  test(
+    'oversized output cancels before bitmap allocation without confirmation',
+    () async {
+      final d = CardDocument.fresh();
+      d.styles['titleValue']['text'] = 'x' * 4000;
+      expect(
+        CardRenderer(chinese, FontRegistry()).render(d),
+        throwsA(isA<RenderCancelledException>()),
+      );
+    },
+  );
   test('ezCD v1 rejects unsafe paths and unknown versions', () {
     expect(FontRepository.validPath('fonts/a.ttf'), true);
     for (final s in [

@@ -87,7 +87,7 @@ void main() {
     });
   }
   testWidgets(
-    'generated prompt actions align at top and helper precedes editor',
+    'generated prompt retains JSON anchor and current action labels',
     (t) async {
       await t.pumpWidget(
         MaterialApp(
@@ -113,22 +113,22 @@ void main() {
       await t.pumpAndSettle();
       expect(
         t.getTopLeft(find.text('编辑歌曲信息JSON')).dy,
-        closeTo(t.getTopLeft(find.text('复制')).dy, 1),
+        lessThan(t.getTopLeft(find.text('复制提示词')).dy),
       );
       expect(
         t.getTopLeft(find.text('编辑歌曲信息JSON')).dx,
-        greaterThan(t.getTopLeft(find.text('复制')).dx),
+        lessThan(t.getTopLeft(find.text('复制提示词')).dx),
       );
       final top = t.getTopLeft(find.byType(ListView)).dy;
       expect(
-        t.getTopLeft(find.text('生成提示词')).dy,
+        t.getTopLeft(find.text('编辑歌曲信息JSON')).dy,
         inInclusiveRange(top, top + 40),
       );
-      final helper = find.text('复制并发给你的AI，请开启联网搜索，复制AI的回答再回到此处，使用下面的按钮粘贴');
+      final helper = find.textContaining('将搜索歌曲信息的任务外包给你的AI');
       final prompt = find.byWidgetPredicate(
         (w) => w is TextField && w.controller!.text.startsWith('你是一个音乐元数据补全助手'),
       );
-      expect(t.getTopLeft(helper).dy, lessThan(t.getTopLeft(prompt).dy));
+      expect(t.getTopLeft(helper).dy, greaterThan(t.getTopLeft(prompt).dy));
       await t.pumpWidget(const SizedBox());
       await t.pumpAndSettle();
       expect(t.takeException(), isNull);
@@ -150,7 +150,7 @@ void main() {
       find.byWidgetPredicate(
         (w) =>
             w is Text &&
-            (w.textSpan?.toPlainText().startsWith('在音乐软件中点击分享') ?? false),
+            (w.textSpan?.toPlainText().startsWith('粘贴分享链接') ?? false),
       ),
     );
     final children = (rich.textSpan as TextSpan).children!.cast<TextSpan>();

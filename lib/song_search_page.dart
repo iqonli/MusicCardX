@@ -691,7 +691,7 @@ class _SongSearchPageState extends State<SongSearchPage>
           body: const SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: SelectableText(
-              '网易云：163cn.tv、163cn.link、music.163.com/song?id=2091914322\nQQ：c6.y.qq.com短链、y.qq.com/n/ryqq/songDetail/歌曲mid\n酷狗：m.kugou.com/share/song.html?chain=分享码、t1.kugou.com短链、带hash的歌曲链接。纯数字码不能唯一确定歌曲。\n酷我：m.kuwo.cn/yinyue/56102277、www.kuwo.cn/play_detail/歌曲ID\n波点：h5app.kuwo.cn/m/bodian/playMusic.html?musicId=歌曲ID；play.html?mvId=视频ID只提供视频信息。\n汽水：qishui.douyin.com/s/短链、music.douyin.com/qishui/share/track?track_id=歌曲ID\n可粘贴整段分享文字、Markdown和多个链接。部分字段可能未提供；解析后默认选中各项首个候选，点击✓才应用。封面尺寸0表示向源站请求最大版本，失败时有限回退，不放大伪造原图像素。',
+              '网易云：163cn.tv、163cn.link、music.163.com/song?id=2091914322\nQQ：c6.y.qq.com短链、y.qq.com/n/ryqq/songDetail/歌曲mid\n酷狗：m.kugou.com/share/song.html?chain=分享码、t1.kugou.com短链、带hash的歌曲链接。纯数字按歌曲编号尝试，分享口令不保证能解析。\n酷我：m.kuwo.cn/yinyue/56102277、www.kuwo.cn/play_detail/歌曲ID\n波点：h5app.kuwo.cn/m/bodian/playMusic.html?musicId=歌曲ID；play.html?mvId=视频ID只提供视频信息。\n汽水：qishui.douyin.com/s/短链、music.douyin.com/qishui/share/track?track_id=歌曲ID\n支持无协议网址、平台别名加ID（前后均可、可换行）、=后的ID；仅有ID时尝试全部平台。可粘贴整段分享文字、Markdown和多个链接。部分字段可能未提供；解析后默认选中各项首个候选，点击✓才应用。封面尺寸0表示向源站请求最大版本，失败时有限回退，不放大伪造原图像素。',
             ),
           ),
         ),
@@ -705,7 +705,10 @@ class _SongSearchPageState extends State<SongSearchPage>
       Text.rich(
         TextSpan(
           children: [
-            const TextSpan(text: '在音乐软件中点击分享>复制链接，并在此粘贴。当前支持$sharePlatforms，'),
+            const TextSpan(
+              text:
+                  '粘贴分享链接、无协议网址或平台名与歌曲ID（前后均可）；只有ID时尝试全部平台。当前支持$sharePlatforms，',
+            ),
             TextSpan(
               text: '点击此处',
               recognizer: helpLink,

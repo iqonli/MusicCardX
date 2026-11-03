@@ -30,21 +30,182 @@ String? sharePlatform(Uri u) {
   return null;
 }
 
+const shareAliases = <String, String>{
+  '网易云音乐': 'netease',
+  '网易云': 'netease',
+  '网易': 'netease',
+  'wyy': 'netease',
+  'wy': 'netease',
+  '163cn': 'netease',
+  '163': 'netease',
+  'qq音乐': 'qq',
+  '企鹅': 'qq',
+  'qq': 'qq',
+  '酷我音乐': 'kuwo',
+  '酷我': 'kuwo',
+  'kw': 'kuwo',
+  'kuwo': 'kuwo',
+  '酷狗音乐概念版': 'kugou',
+  '酷狗概念版': 'kugou',
+  '酷狗音乐': 'kugou',
+  '酷狗': 'kugou',
+  'kugou': 'kugou',
+  'kugo': 'kugou',
+  'kg': 'kugou',
+  '波点音乐': 'bodian',
+  '波点': 'bodian',
+  'bd': 'bodian',
+  'bodian': 'bodian',
+  '汽水音乐': 'soda',
+  '汽水': 'soda',
+};
+
+Uri? shareIdentity(String platform, String id, {String key = ''}) {
+  final numeric = RegExp(r'^\d+$').hasMatch(id);
+  switch (platform) {
+    case 'netease':
+      return numeric ? Uri.https('music.163.com', '/song', {'id': id}) : null;
+    case 'qq':
+      return Uri.https('y.qq.com', '/n/ryqq/songDetail/$id');
+    case 'kuwo':
+      return numeric ? Uri.https('www.kuwo.cn', '/play_detail/$id') : null;
+    case 'bodian':
+      return numeric
+          ? Uri.https('h5app.kuwo.cn', '/share', {
+              key.toLowerCase() == 'mvid' ? 'mvId' : 'musicId': id,
+            })
+          : null;
+    case 'soda':
+      return numeric
+          ? Uri.https('music.douyin.com', '/qishui/share/track', {
+              'track_id': id,
+            })
+          : null;
+    case 'kugou':
+      if (RegExp(r'^[a-fA-F0-9]{32}$').hasMatch(id)) {
+        return Uri.https('www.kugou.com', '/song/', {'hash': id.toUpperCase()});
+      }
+      return numeric
+          ? Uri.https('www.kugou.com', '/song/', {'mixsongid': id})
+          : null;
+  }
+  return null;
+}
+
+/// Lex URLs first so their query numbers never become unrelated bare IDs.
+/// Alias association only crosses whitespace/colon separators, in either direction.
 List<Uri> shareLinks(String raw) {
-  final clean = raw
+  if (RegExp(r'^\s*\d+\s*$').hasMatch(raw)) {
+    return [
+      'netease',
+      'qq',
+      'kugou',
+      'kuwo',
+      'bodian',
+      'soda',
+    ].map((p) => shareIdentity(p, raw.trim())).whereType<Uri>().toList();
+  }
+  var clean = raw
       .replaceAll('&amp;', '&')
       .replaceAll(r'\&', '&')
       .replaceAll(r'\_', '_');
-  final seen = <String>{};
+  final aliases = shareAliases.keys.toList()
+    ..sort((a, b) => b.length.compareTo(a.length));
+  // The numeric alias 163 needs a separator: 163123 is also a valid bare ID.
+  final attached = aliases
+      .where((s) => s != '163')
+      .map(RegExp.escape)
+      .join('|');
+  clean = clean.replaceAllMapped(
+    RegExp(r'(^|\s)(' + attached + r')(?=\d)', caseSensitive: false),
+    (m) => '${m[1]}${m[2]} ',
+  );
+  clean = clean.replaceAllMapped(
+    RegExp(r'(\d)(' + attached + r')(?=$|\s)', caseSensitive: false),
+    (m) => '${m[1]} ${m[2]}',
+  );
+  final pattern = RegExp(
+    r'''(?:song\?id\s*=\s*\d+)|https?://[^\s<>\[\]()"'，。；、]+|(?:[a-z0-9-]+\.)+[a-z]{2,}/[^\s<>\[\]()"'，。；、]*|(?<![a-z0-9_])(?:''' +
+        aliases.map(RegExp.escape).join('|') +
+        r''')(?![a-z0-9_])|(?<![a-z0-9_])(?:(?:[a-z_]+)\s*=\s*)?[a-z0-9]+(?![a-z0-9_])''',
+    caseSensitive: false,
+  );
+  final tokens = pattern.allMatches(clean).toList();
   final out = <Uri>[];
-  for (final m in RegExp(
-    r'''https?://[^\s<>\[\]()"'，。；、]+''',
-  ).allMatches(clean)) {
+  final seen = <String>{};
+  int identities = 0;
+  void add(Uri? u) {
+    if (u == null || sharePlatform(u) == null) return;
+    final fragment = Uri.tryParse(u.fragment);
+    final q = {
+      ...u.queryParameters,
+      if (fragment != null) ...fragment.queryParameters,
+    };
+    final id =
+        q['id'] ??
+        q['songmid'] ??
+        q['songid'] ??
+        q['musicId'] ??
+        q['mvId'] ??
+        q['track_id'] ??
+        q['hash'] ??
+        q['mixsongid'] ??
+        RegExp(r'/(?:songDetail|play_detail|song)/(\w+)')
+            .firstMatch(u.path)?[1];
+    final k = id == null
+        ? u.toString()
+        : '${sharePlatform(u)}:${id.toLowerCase()}';
+    if (seen.add(k)) out.add(u);
+  }
+
+  for (int i = 0; i < tokens.length && identities < 10; i++) {
+    final m = tokens[i];
     final text = m[0]!.replaceFirst(RegExp(r'[.,;!！）】]+$'), '');
-    final u = Uri.tryParse(text);
-    if (u != null && sharePlatform(u) != null && seen.add(u.toString())) {
-      out.add(u);
+    if (text.contains('://') ||
+        RegExp(r'^[a-z0-9-]+\.', caseSensitive: false).hasMatch(text)) {
+      final u = Uri.tryParse(text.contains('://') ? text : 'https://$text');
+      if (u != null && sharePlatform(u) != null) {
+        add(u);
+        identities++;
+      }
+      continue;
     }
+    if (shareAliases.containsKey(text.toLowerCase())) continue;
+    final identityText = text.replaceFirst(
+      RegExp(r'^song\?', caseSensitive: false),
+      '',
+    );
+    final assignment = RegExp(
+      r'^([a-z_]+)\s*=\s*([a-z0-9]+)$',
+      caseSensitive: false,
+    ).firstMatch(identityText);
+    final id = assignment?[2] ?? text;
+    String? platform;
+    for (final n in [i - 1, i + 1]) {
+      if (n < 0 || n >= tokens.length) continue;
+      final other = tokens[n];
+      final gap = n < i
+          ? clean.substring(other.end, m.start)
+          : clean.substring(m.end, other.start);
+      if (!RegExp(r'^[\s:：=]*$').hasMatch(gap)) continue;
+      final candidate = shareAliases[other[0]!.toLowerCase()];
+      if (candidate != null) {
+        platform = candidate;
+        break;
+      }
+    }
+    if (!RegExp(r'^\d+$|^[a-fA-F0-9]{32}$').hasMatch(id) &&
+        !(assignment != null && assignment[1]!.toLowerCase() == 'songmid') &&
+        !(platform == 'qq' && RegExp(r'^[a-zA-Z0-9]{14}$').hasMatch(id))) {
+      continue;
+    }
+    for (final p
+        in platform == null
+            ? ['netease', 'qq', 'kugou', 'kuwo', 'bodian', 'soda']
+            : [platform]) {
+      add(shareIdentity(p, id, key: assignment?[1] ?? ''));
+    }
+    identities++;
   }
   return out;
 }
@@ -162,7 +323,7 @@ class ShareHttp {
       }
       final req = await client.openUrl(post == null ? 'GET' : 'POST', u);
       req.followRedirects = false;
-      req.headers.set('User-Agent', 'Mozilla/5.0 MusicCardX/1.4.7');
+      req.headers.set('User-Agent', 'Mozilla/5.0 MusicCardX/1.4.8');
       for (final e in headers.entries) {
         req.headers.set(e.key, e.value);
       }
@@ -291,12 +452,12 @@ class MusicShareService {
   Future<List<ShareResult>> resolve(String raw, CoverCancel cancel) async {
     final results = <ShareResult>[];
     final links = shareLinks(raw);
-    if (links.isEmpty) throw const FormatException('未识别到支持的链接；酷狗裸数字码无法唯一确定歌曲');
+    if (links.isEmpty) throw const FormatException('未识别到支持的链接或歌曲ID');
     final errors = <String>[];
-    for (final original in links.take(10)) {
+    Future<void> resolveOne(Uri original) async {
       try {
         results.add(
-          await one(original, cancel).timeout(const Duration(seconds: 75)),
+          await one(original, cancel).timeout(const Duration(seconds: 25)),
         );
       } on CoverCancelled {
         rethrow;
@@ -325,7 +486,18 @@ class MusicShareService {
         }
       }
     }
+
+    // Bound network work while allowing all six platforms for an unlabelled ID.
+    for (var start = 0; start < links.length; start += 3) {
+      cancel.check();
+      await Future.wait(links.skip(start).take(3).map(resolveOne));
+    }
     if (results.isEmpty) throw FormatException(errors.join('\n'));
+    results.sort(
+      (a, b) => links
+          .indexWhere((u) => sharePlatform(u) == a.platform)
+          .compareTo(links.indexWhere((u) => sharePlatform(u) == b.platform)),
+    );
     return results;
   }
 
@@ -615,6 +787,16 @@ class MusicShareService {
         }
       }
       if (row.isEmpty) throw const FormatException('未取得酷狗歌曲信息');
+      final requestedMix = q['mixsongid'];
+      if (requestedMix != null &&
+          st(row['album_audio_id'] ?? row['mixsongid']) != requestedMix) {
+        throw const FormatException('酷狗歌曲编号未匹配');
+      }
+      if (q['hash'] != null &&
+          st(row['hash']).toLowerCase() != q['hash']!.toLowerCase()) {
+        throw const FormatException('酷狗歌曲hash未匹配');
+      }
+
       id = st(row['audio_id']);
       if (id.isEmpty) id = hash;
       basic(
