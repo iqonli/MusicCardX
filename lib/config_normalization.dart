@@ -75,7 +75,15 @@ Map<String, dynamic> normalizeConfiguration(Map<String, dynamic> raw) {
   (schema['lyrics'] as Map)['weight'] = 400;
   schema['previewPinned'] = true;
   final source = Map<String, dynamic>.from(raw);
+  if (source['backgroundStyle'] == 'fusion')
+    source['backgroundStyle'] = 'fusionClassic';
   final out = clean(source, schema);
+  if (out['backgroundBlurStrengths'] is Map) {
+    final values = out['backgroundBlurStrengths'] as Map;
+    for (final key in values.keys.toList()) {
+      values[key] = (values[key] as num).clamp(0, 500);
+    }
+  }
   if (source['fields'] is Map) {
     out['fields'] = normalizeSongFields(
       Map<String, dynamic>.from(source['fields']),

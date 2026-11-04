@@ -555,7 +555,7 @@ class _SongSearchPageState extends State<SongSearchPage>
                         contentPadding: const EdgeInsets.fromLTRB(
                           12,
                           16,
-                          52,
+                          12,
                           16,
                         ),
                         border: const OutlineInputBorder(),
@@ -578,9 +578,18 @@ class _SongSearchPageState extends State<SongSearchPage>
                       ),
                     ),
                     Positioned(
-                      top: 4,
-                      right: 4,
+                      top: 0,
+                      right: 0,
                       child: IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints.tightFor(
+                          width: 33.6,
+                          height: 33.6,
+                        ),
+                        iconSize: 16.8,
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                        ),
                         tooltip: promptExpanded ? '缩小' : '放大',
                         icon: Icon(
                           promptExpanded
@@ -756,9 +765,12 @@ class _SongSearchPageState extends State<SongSearchPage>
       if (shareResults.any((r) => r.cover.isNotEmpty))
         Align(
           alignment: Alignment.centerLeft,
-          child: TextButton(
-            onPressed: viewShareCover,
-            child: const Text('查看封面'),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('解析到封面图片！', style: TextStyle(color: Colors.red)),
+              TextButton(onPressed: viewShareCover, child: const Text('查看封面')),
+            ],
           ),
         ),
       SingleChildScrollView(

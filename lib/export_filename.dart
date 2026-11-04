@@ -13,7 +13,7 @@ String exportFilename(
 }) {
   final fields = Map<String, dynamic>.from(doc.fields);
   // Seed is meaningful only for fusion; metadata must not override this value.
-  fields['seed'] = doc.text('backgroundStyle') == 'fusion'
+  fields['seed'] = seededBackgrounds.contains(doc.text('backgroundStyle'))
       ? doc.text('seed')
       : '';
   var name = TitleFormat(fields)

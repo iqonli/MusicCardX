@@ -255,6 +255,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
     _saveTimer?.cancel();
     _maintenanceTimer?.cancel();
     maintainStorage();
+    renderer.clearBackgroundCache();
     cover?.dispose();
     rendered?.image.dispose();
     super.dispose();
@@ -842,6 +843,11 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
       );
       if (v != null) {
         map[key] = empty && v.trim().isEmpty ? '' : double.parse(v);
+        if (identical(map, doc.data) && key == 'blurStrength') {
+          final values = mapv(doc.data['backgroundBlurStrengths']);
+          values[doc.text('backgroundStyle')] = map[key];
+          doc.data['backgroundBlurStrengths'] = values;
+        }
         changed();
       }
     },
@@ -873,7 +879,11 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
       ),
     );
     if (v != null) {
-      map[key] = v;
+      if (identical(map, doc.data) && key == 'backgroundStyle') {
+        doc.setBackground(v);
+      } else {
+        map[key] = v;
+      }
       changed();
     }
   });
@@ -1747,21 +1757,11 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
       number('输出倍率', doc.data, 'exportScale', .1, 10),
       choice('背景', doc.data, 'backgroundStyle', backgrounds),
       if (doc.text('backgroundStyle') == 'solid')
-        setting('自定义', '', () async {
-          final value = await pickCardColor(
-            context,
-            colorHex(tokenColor(doc.text('solidHex'), Colors.black)),
-            title: '自定义',
-          );
-          if (value != null) {
-            doc.data['solidHex'] = value;
-            changed();
-          }
-        }),
-      choice('简繁', doc.data, 'textOpenCCMode', ccModes),
+        textSetting('自定义', doc.data, 'solidHex', color: true),
+      number('模糊强度', doc.data, 'blurStrength', 0, 500),
     ],
     [
-      number('模糊强度', doc.data, 'blurStrength', 0, 500),
+      choice('简繁', doc.data, 'textOpenCCMode', ccModes),
       setting(
         '封面圆角',
         const {
@@ -1776,19 +1776,17 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
             '普通圆角',
         shapeSettings,
       ),
-    ],
-    [
-      number('封面阴影不透明度', doc.data, 'coverShadowOpacity', 0, 255),
-      number('阴影深度', doc.data, 'coverShadowDepth', 0, 100),
       choice('不规则封面', doc.data, 'irregularCoverMode', {
         'crop': '裁剪',
         'tile': '平铺',
       }),
     ],
+    [
+      number('封面阴影不透明度', doc.data, 'coverShadowOpacity', 0, 255),
+      number('阴影深度', doc.data, 'coverShadowDepth', 0, 100),
+    ],
     if (doc.text('backgroundStyle') == 'blur')
       [number('背景截取封面位置 %', doc.data, 'blurBackgroundCropPosition', 0, 100)],
-    if (doc.text('backgroundStyle') == 'solid')
-      [textSetting('纯色', doc.data, 'solidHex', color: true)],
   ]);
   Widget lyricsPanel() {
     final ly = doc.lyrics;
@@ -2589,7 +2587,7 @@ class _EditorState extends State<Editor> with WidgetsBindingObserver {
                     },
                     child: Text('Copy seed: ${doc.text('seed')}'),
                   ),
-                  if (doc.text('backgroundStyle') == 'fusion')
+                  if (seededBackgrounds.contains(doc.text('backgroundStyle')))
                     TextButton(onPressed: seedFair, child: const Text('博览会')),
                   IconButton(
                     tooltip: 'Refresh',

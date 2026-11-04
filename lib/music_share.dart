@@ -323,7 +323,7 @@ class ShareHttp {
       }
       final req = await client.openUrl(post == null ? 'GET' : 'POST', u);
       req.followRedirects = false;
-      req.headers.set('User-Agent', 'Mozilla/5.0 MusicCardX/1.4.8');
+      req.headers.set('User-Agent', 'Mozilla/5.0 MusicCardX/1.5.0');
       for (final e in headers.entries) {
         req.headers.set(e.key, e.value);
       }

@@ -5,6 +5,10 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import 'model.dart';
+import 'seed_backgrounds.dart' as fields;
+
+import 'package:flutter/foundation.dart';
+
 import 'font_style.dart';
 import 'seed.dart';
 import 'palette_tools.dart';
@@ -59,6 +63,82 @@ class CardRenderer {
   final ChineseConverter chinese;
   final FontRegistry fonts;
   CardRenderer(this.chinese, this.fonts);
+  final _fieldCache = <Object, Future<Map<String, Object>>>{};
+  ui.Image? _preparedCoverImage;
+  Future<Map<String, Object>>? _preparedCover;
+  void clearBackgroundCache() {
+    _fieldCache.clear();
+    _preparedCoverImage = null;
+    _preparedCover = null;
+  }
+
+  Future<Map<String, Object>> _seedField(
+    CardDocument doc,
+    List<Color> palette,
+    ui.Image? cover,
+    double width,
+  ) {
+    final mode = doc.text('backgroundStyle'), seed = doc.text('seed');
+    final colors = palette.map((c) => c.toARGB32()).toList();
+    final key = (
+      mode,
+      seed,
+      width,
+      colors.join(','),
+      mode == 'mist' ? cover : null,
+    );
+    final existing = _fieldCache.remove(key);
+    if (existing != null) {
+      _fieldCache[key] = existing;
+      return existing;
+    }
+    Future<Map<String, Object>> generate() async {
+      Map<String, Object>? prepared;
+      if (mode == 'mist' && cover != null) {
+        if (!identical(_preparedCoverImage, cover) || _preparedCover == null) {
+          _preparedCoverImage = cover;
+          _preparedCover = () async {
+            final bytes = await cover.toByteData(
+              format: ui.ImageByteFormat.rawRgba,
+            );
+            return compute(fields.prepareMistCover, <String, Object?>{
+              'cover': bytes!.buffer.asUint8List(),
+              'coverWidth': cover.width,
+              'coverHeight': cover.height,
+            });
+          }();
+        }
+        try {
+          prepared = await _preparedCover!;
+        } catch (_) {
+          _preparedCover = null;
+          rethrow;
+        }
+      }
+      return compute(fields.renderSeedBackground, <String, Object?>{
+        'mode': mode,
+        'seed': seed,
+        'width': width,
+        'height': 400.0,
+        'palette': colors,
+        'preparedCover': prepared,
+      });
+    }
+
+    final future = generate();
+    _fieldCache[key] = future;
+    while (_fieldCache.length > 12) {
+      _fieldCache.remove(_fieldCache.keys.first);
+    }
+    future.then<void>(
+      (_) {},
+      onError: (Object e, StackTrace st) {
+        if (identical(_fieldCache[key], future)) _fieldCache.remove(key);
+      },
+    );
+    return future;
+  }
+
   Future<RenderedCard> render(
     CardDocument doc, {
     ui.Image? cover,
@@ -101,6 +181,7 @@ class CardRenderer {
       );
     }
     final resources = <_Text>[];
+    ui.Image? fieldImage;
     _Text make(String text, Map<String, dynamic> s, {double? alpha}) {
       final c = opacity(
         resolveColor('${s['colorHex'] ?? ''}', base, rainbow),
@@ -238,7 +319,55 @@ class CardRenderer {
       final recorder = ui.PictureRecorder(), canvas = Canvas(recorder);
       canvas.scale(scale);
       final bounds = Rect.fromLTWH(0, 0, width, 400);
-      _background(canvas, bounds, doc, palette, solid, cover, scale);
+      {
+        if (fields.parameterRanges.containsKey(doc.text('backgroundStyle'))) {
+          final result = await _seedField(doc, palette, cover, width);
+          final buffer = await ui.ImmutableBuffer.fromUint8List(
+            result['bytes'] as Uint8List,
+          );
+          final descriptor = ui.ImageDescriptor.raw(
+            buffer,
+            width: result['width'] as int,
+            height: result['height'] as int,
+            pixelFormat: ui.PixelFormat.rgba8888,
+          );
+          final codec = await descriptor.instantiateCodec();
+          try {
+            fieldImage = (await codec.getNextFrame()).image;
+          } finally {
+            codec.dispose();
+            descriptor.dispose();
+            buffer.dispose();
+          }
+          final sigma = _sigma(doc.n('blurStrength'), 20, 1.4);
+          canvas.saveLayer(
+            bounds,
+            Paint()
+              ..imageFilter = sigma > 0
+                  ? ui.ImageFilter.blur(
+                      sigmaX: sigma,
+                      sigmaY: sigma,
+                      tileMode: TileMode.clamp,
+                    )
+                  : null,
+          );
+          canvas.drawImageRect(
+            fieldImage,
+            Rect.fromLTWH(
+              0,
+              0,
+              fieldImage.width.toDouble(),
+              fieldImage.height.toDouble(),
+            ),
+            bounds,
+            Paint()..filterQuality = FilterQuality.high,
+          );
+          canvas.restore();
+        } else {
+          _background(canvas, bounds, doc, palette, solid, cover, scale);
+        }
+      }
+
       void styled(
         _Text text,
         Map<String, dynamic> s,
@@ -395,6 +524,7 @@ class CardRenderer {
         picture.dispose();
       }
     } finally {
+      fieldImage?.dispose();
       for (final t in resources) {
         t.dispose();
       }
@@ -461,7 +591,7 @@ class CardRenderer {
       return;
     }
     final random = OriginalRandom(doc.text('seed'));
-    final angle = mode == 'fusion'
+    final angle = mode == 'fusionClassic'
         ? (random.nextDouble() * 360).floor() * math.pi / 180
         : math.pi / 2;
     void gradient(double a, Color first, Color second) {
@@ -478,7 +608,7 @@ class CardRenderer {
 
     gradient(angle, p[0], p[1]);
     gradient(
-      mode == 'fusion'
+      mode == 'fusionClassic'
           ? (((angle * 180 / math.pi + 50 + random.nextDouble() * 120) % 360)
                     .floor()) *
                 math.pi /
@@ -487,10 +617,8 @@ class CardRenderer {
       Color.lerp(p[2], p[0], .35)!.withAlpha(92),
       Color.lerp(p[3], p[1], .35)!.withAlpha(12),
     );
-    final sigma = mode == 'sample'
-        ? 0.0
-        : mode == 'ink'
-        ? 30 / scale
+    final sigma = mode == 'ink'
+        ? doc.n('blurStrength') / 10 / scale
         : _sigma(doc.n('blurStrength'), 20, 1.4) *
               math.max(1, scale * .65) /
               scale;
@@ -501,7 +629,7 @@ class CardRenderer {
             ? ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma)
             : null),
     );
-    if (mode == 'fusion') {
+    if (mode == 'fusionClassic') {
       final count = 3 + random.nextInt(4);
       for (int i = 0; i < count; i++) {
         final color = p[random.nextInt(p.length)].withAlpha(

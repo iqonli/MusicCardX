@@ -20,13 +20,13 @@ void main() {
     await t.pumpWidget(MusicCardX(doc, chinese));
     await t.pumpAndSettle();
     final dynamic editor = t.state(find.byType(Editor));
-    for (final mode in ['fusion', 'ink', 'sample', 'blur', 'solid', 'fusion']) {
-      doc.data['backgroundStyle'] = mode;
+    for (final mode in backgrounds.keys) {
+      doc.setBackground(mode);
       editor.changed();
       await t.pumpAndSettle();
       expect(
         find.text('博览会'),
-        mode == 'fusion' ? findsOneWidget : findsNothing,
+        seededBackgrounds.contains(mode) ? findsOneWidget : findsNothing,
         reason: mode,
       );
       expect(find.text('Input'), findsOneWidget);
@@ -69,13 +69,11 @@ void main() {
       );
       await t.tap(custom);
       await t.pumpAndSettle();
-      final hex = find.byWidgetPredicate(
-        (w) => w is TextField && w.decoration?.labelText == 'HEX',
-      );
-      await t.enterText(hex, '12AB34');
+      final hex = find.byType(TextFormField).last;
+      await t.enterText(hex, 'r%10+#12AB34');
       await t.tap(find.text('确定'));
       await t.pumpAndSettle();
-      expect(doc.text('solidHex'), '#12ab34');
+      expect(doc.text('solidHex'), 'r%10+#12ab34');
       doc.data['backgroundStyle'] = 'ink';
       editor.changed();
       await t.pumpAndSettle();

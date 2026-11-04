@@ -21,11 +21,23 @@ const styleLabels = <String, String>{
   'watermark': '水印',
 };
 const backgrounds = {
-  'fusion': '融合',
+  'fusionClassic': '融合经典版',
+  'fusionSoft': '融合新版-soft',
+  'fusionHard': '融合新版-hard',
+  'lightFlow': '流光 (测试版)',
+  'mist': '雾化',
   'ink': '墨点',
   'sample': '采点',
   'blur': '模糊',
   'solid': '纯色',
+};
+const newBackgrounds = {'fusionSoft', 'fusionHard', 'lightFlow', 'mist'};
+const seededBackgrounds = {
+  'fusionClassic',
+  'fusionSoft',
+  'fusionHard',
+  'lightFlow',
+  'mist',
 };
 const ccModes = {
   'off': '关闭',
@@ -48,9 +60,39 @@ class CardDocument {
   static late Map<String, dynamic> defaults;
   Map<String, dynamic> data;
   CardDocument(this.data) {
+    normalizeBackgrounds();
     normalizeDocumentColors(data);
     enforceDisabledSongFields();
   }
+  void normalizeBackgrounds() {
+    if (data['backgroundStyle'] == 'fusion')
+      data['backgroundStyle'] = 'fusionClassic';
+    final mode = text('backgroundStyle');
+    if (!backgrounds.containsKey(mode))
+      data['backgroundStyle'] = 'fusionClassic';
+    final saved = mapv(data['backgroundBlurStrengths']);
+    final current = text('backgroundStyle');
+    data['backgroundBlurStrengths'] = {
+      for (final key in backgrounds.keys)
+        key: numv(
+          saved[key],
+          key == current
+              ? numv(data['blurStrength'], 300)
+              : ((newBackgrounds.contains(key) || key == 'sample') ? 0 : 300),
+        ).clamp(0, 500),
+    };
+    data['blurStrength'] = mapv(data['backgroundBlurStrengths'])[current];
+  }
+
+  void setBackground(String mode) {
+    if (!backgrounds.containsKey(mode)) return;
+    final values = mapv(data['backgroundBlurStrengths']);
+    values[text('backgroundStyle')] = n('blurStrength', 300).clamp(0, 500);
+    data['backgroundBlurStrengths'] = values;
+    data['backgroundStyle'] = mode;
+    data['blurStrength'] = numv(values[mode], 300);
+  }
+
   static Future<void> initialize() async {
     defaults = mapv(
       jsonDecode(await rootBundle.loadString('assets/defaults.json')),
@@ -58,12 +100,16 @@ class CardDocument {
   }
 
   factory CardDocument.fresh() => CardDocument({
-    'musicCardXVersion': '1.4.8',
+    'musicCardXVersion': '1.5.0',
     'styleSchemaVersion': 16,
     'musicCardXSchemaVersion': 1,
     'exportScale': 1.0,
-    'backgroundStyle': 'fusion',
+    'backgroundStyle': 'fusionClassic',
     'blurStrength': 300.0,
+    'backgroundBlurStrengths': {
+      for (final mode in backgrounds.keys)
+        mode: (newBackgrounds.contains(mode) || mode == 'sample') ? 0.0 : 300.0,
+    },
     'solidHex': '#000000',
     'coverShadowOpacity': 40.0,
     'coverShadowDepth': 3.0,
@@ -136,6 +182,8 @@ class CardDocument {
     final d = CardDocument.fresh();
     final fontDefaults = mapv(d.data['fontPreferences']);
     d.data.addAll(raw);
+    if (!raw.containsKey('backgroundBlurStrengths'))
+      d.data['backgroundBlurStrengths'] = <String, dynamic>{};
     d.data['fontPreferences'] = {
       ...fontDefaults,
       ...mapv(raw['fontPreferences']),
@@ -170,7 +218,7 @@ class CardDocument {
         .replaceFirst('palette:', '');
     if (legacy) d.data['displayFontName'] = '';
     if (!backgrounds.containsKey(d.data['backgroundStyle'])) {
-      d.data['backgroundStyle'] = 'fusion';
+      d.data['backgroundStyle'] = 'fusionClassic';
     }
     for (final entry in [...d.styles.values, d.lyrics]) {
       for (final key in ['size', 'opacity', 'blurStrength', 'blurOpacity']) {
@@ -184,6 +232,7 @@ class CardDocument {
             .clamp(-1000, 1000);
       }
     }
+    d.normalizeBackgrounds();
     final colors = d.data['customEnvironmentColors'];
     if (colors is! List ||
         colors.length != 5 ||
@@ -201,7 +250,7 @@ class CardDocument {
       if (!ccModes.containsKey(d.data[k])) d.data[k] = 'off';
     }
     d.data['textRenderingHint'] = 4;
-    d.data['musicCardXVersion'] = '1.4.8';
+    d.data['musicCardXVersion'] = '1.5.0';
     if (!raw.containsKey('coverShape') && d.n('coverCornerRadius') == 180) {
       d.data['coverShape'] = 'ellipse';
     }
@@ -250,7 +299,9 @@ class CardDocument {
   String evaluate(String expression) {
     return TitleFormat({
       ...fields,
-      'seed': text('backgroundStyle') == 'fusion' ? text('seed') : '',
+      'seed': seededBackgrounds.contains(text('backgroundStyle'))
+          ? text('seed')
+          : '',
     }).evaluate(expression);
   }
 }

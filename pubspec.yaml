@@ -1,10 +1,12 @@
 name: musiccardx
 description: MusicCardX Android card editor, ported from MusicCard.
 publish_to: none
-version: 1.4.8+31
+version: 1.5.0+35
 environment:
   sdk: '>=3.13.0 <4.0.0'
 dependencies:
+  mcx_background:
+    path: third_party/mcx_background
   flutter:
     sdk: flutter
   material_color_utilities: 0.13.0
