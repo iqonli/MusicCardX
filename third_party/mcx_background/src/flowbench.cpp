@@ -98,9 +98,9 @@ uint32_t seedHash(const std::string& s){uint32_t h=2166136261u; // FNV-1a over U
 // v7: independently hash seed + effect + parameter name. No platform RNG state,
 // thread order or palette contents affect the selected parameter values.
 std::array<ParamSpec,5> seedV7Specs(const std::string& effect){
- if(effect=="lightFlow")return {{{"warp_strength",.6,{{0,.30,.60,.90,1.20}},"v4 ribbon displacement"},
- {"ridge_strength",.36,{{0,.18,.36,.54,.72}},"v4 ribbon strength"},
- {"ridge_frequency",6.,{{2.,4.,6.,8.,10.}},"v4 ribbon spatial frequency"},
+ if(effect=="lightFlow")return {{{"warp_strength",.6,{{0,.30,.60,.90,1.20}},"V2 flow displacement"},
+ {"ridge_strength",.36,{{0,.18,.36,.54,.72}},"haze luminance variation; ribbon term disabled"},
+ {"haze_scale",2.8,{{1.,2.25,3.5,4.75,6.}},"haze spatial scale, seeded over 1..6"},
  {"reserved_1",0.,{{0.,0.,0.,0.,0.}},"unused"},
  {"reserved_2",0.,{{0.,0.,0.,0.,0.}},"unused"}}};
 

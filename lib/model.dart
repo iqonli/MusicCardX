@@ -24,7 +24,7 @@ const backgrounds = {
   'fusionClassic': '融合经典版',
   'fusionSoft': '融合新版-soft',
   'fusionHard': '融合新版-hard',
-  'lightFlow': '流光 (测试版)',
+  'lightFlow': '流光',
   'mist': '雾化',
   'ink': '墨点',
   'sample': '采点',
@@ -100,7 +100,7 @@ class CardDocument {
   }
 
   factory CardDocument.fresh() => CardDocument({
-    'musicCardXVersion': '1.5.0',
+    'musicCardXVersion': '1.5.1',
     'styleSchemaVersion': 16,
     'musicCardXSchemaVersion': 1,
     'exportScale': 1.0,
@@ -250,7 +250,7 @@ class CardDocument {
       if (!ccModes.containsKey(d.data[k])) d.data[k] = 'off';
     }
     d.data['textRenderingHint'] = 4;
-    d.data['musicCardXVersion'] = '1.5.0';
+    d.data['musicCardXVersion'] = '1.5.1';
     if (!raw.containsKey('coverShape') && d.n('coverCornerRadius') == 180) {
       d.data['coverShape'] = 'ellipse';
     }

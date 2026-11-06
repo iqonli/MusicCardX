@@ -1,8 +1,8 @@
 #include "shader_shared.hpp"
-// Ribbon field directly taken from the v4 screening package (V2 engine).
+// V2 flow field, experimental haze-only rendering: explicit ribbon highlight disabled.
 namespace flow::detail {
 V3 lightFlowRibbon(State&st,V2 uv){
- const double warpStrength=st.k[0],ridgeStrength=st.k[1],ridgeFreq=st.k[2];
+ const double warpStrength=st.k[0],hazeStrength=st.k[1],hazeScale=st.k[2];
  double aspect=st.width/st.height;
  V2 p=uv-V2(.5,.5);p.y/=aspect;
  double angle=(perlin(V2(st.time*.09,p.x*p.y+2),st.seed)-.5)*TAU+PI;
@@ -13,12 +13,9 @@ V3 lightFlowRibbon(State&st,V2 uv){
  double a=smooth(-.38,.33,rot(p,-.0873).x);
  double b=smooth(.49,-.38,p.y*aspect);
  V3 base=bilinear(st.p[0],st.p[1],st.p[2],st.p[3],a,b);
- double q=p.x*.68+p.y*.74;
- double slosh=std::sin(ridgeFreq*q + 1.7*std::sin(p.y*2.6+st.time*.045) + .9*std::sin(p.x*3.1-st.time*.034));
- double ribbon=std::exp(-14.*slosh*slosh);
- double haze=fbm(p*2.8+V2(st.time*.018,3),st.seed^0x383u,4);
+ double haze=fbm(p*hazeScale+V2(st.time*.018,3),st.seed^0x383u,4);
  V3 mixed=perceptual(base,st.p[4],.12+.22*smooth(.38,.75,haze));
- return sat(mixed+V3{1,1,1}*(ridgeStrength*(.22*ribbon+.10*(haze-.5))));
+ return sat(mixed+V3{1,1,1}*(hazeStrength*.10*(haze-.5)));
 }
 
 V3 shadeLightFlow(State& st,V2 uv){return lightFlowRibbon(st,uv);}
