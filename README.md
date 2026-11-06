@@ -8,7 +8,7 @@
 
 [下载最新版](https://github.com/iqonli/MusicCardX/releases/latest) · [完整使用说明](docs/MusicCardX-使用说明.md) · [报告问题](https://github.com/iqonli/MusicCardX/issues)
 
-当前版本：`1.4.5+22`
+当前版本：`1.5.1`
 
 本项目使用 [GNU Lesser General Public License v3.0 or later](LICENSE) 许可证。第三方项目及依赖的版权与许可证见 [NOTICE](NOTICE) 和应用内 Licenses 页面。
 
