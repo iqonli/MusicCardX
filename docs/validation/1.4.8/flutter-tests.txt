@@ -1,0 +1,440 @@
+00:00 +0: loading /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart
+00:00 +0: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: (setUpAll)
+00:00 +0: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v135_test.dart: (setUpAll)
+00:00 +0: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +1: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +2: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +3: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +4: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +5: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +6: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +7: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +8: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +9: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +10: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+00:00 +11: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/font_startup_test.dart: first preview waits for font repository initialization
+dynamic_color: Dynamic color not detected on this device.
+00:01 +12: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v135_test.dart: typing saves draft without rendering until focus leaves
+00:01 +13: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v146_test.dart: prompt border follows inputs and regeneration
+00:02 +14: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +15: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +16: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: detail buttons save/use the current asset without implicit full download
+00:02 +17: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: OpenCC results match bundled original library
+00:02 +18: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: OpenCC results match bundled original library
+00:02 +19: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: check downloads the large cover first and never applies a failed download
+00:03 +20: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: check downloads the large cover first and never applies a failed download
+00:03 +21: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: check downloads the large cover first and never applies a failed download
+00:03 +22: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: check downloads the large cover first and never applies a failed download
+00:03 +23: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:04 +24: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:04 +24: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/configuration_settings_test.dart: configuration snapshot and application include external font preferences and pinned state
+dynamic_color: Dynamic color not detected on this device.
+00:04 +25: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:04 +26: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: all backgrounds export PNG and X seeds are repeatable
+00:04 +27: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:04 +28: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:04 +29: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: phone grid stays usable with enlarged text
+00:05 +30: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +31: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +32: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +33: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +34: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +35: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +36: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: new shares replace an open search page through the home route
+00:05 +37: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: search page keeps form metadata separate and persists dimensions
+00:05 +38: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: search page keeps form metadata separate and persists dimensions
+00:05 +39: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: search page keeps form metadata separate and persists dimensions
+00:05 +40: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: search page keeps form metadata separate and persists dimensions
+00:05 +41: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: search page keeps form metadata separate and persists dimensions
+00:05 +42: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/cover_search_test.dart: search page keeps form metadata separate and persists dimensions
+00:05 +43: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:05 +44: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:05 +45: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +46: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +47: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +48: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +49: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +50: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +51: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +52: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +53: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +54: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +55: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +56: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +57: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +58: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: font family label previews standard face and arrow expands independently
+00:06 +59: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/song_search_test.dart: title and artist required; partial provider failure retains candidates and bold comparisons
+00:06 +59: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/import_flow_test.dart: removing a cover requires confirmation and cancel preserves it
+dynamic_color: Dynamic color not detected on this device.
+00:06 +60: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/song_search_test.dart: title and artist required; partial provider failure retains candidates and bold comparisons
+00:07 +61: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/song_search_test.dart: title and artist required; partial provider failure retains candidates and bold comparisons
+00:07 +62: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v133_test.dart: actual image viewer keeps contained layout and zoom with bicubic
+00:07 +63: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:07 +64: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:07 +65: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:07 +66: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:07 +67: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:07 +68: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +69: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +70: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +71: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +72: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +73: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +74: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +75: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +76: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +77: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +78: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +79: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +80: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +81: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +82: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +83: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +84: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +85: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+00:08 +86: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/musiccard_test.dart: dense workspace, pin and fullscreen viewport
+dynamic_color: Dynamic color not detected on this device.
+00:08 +87: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:08 +88: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v131_test.dart: table has no numeric cap and content/font have only upper caps
+00:09 +89: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_test.dart: three tabs, eight optional AI fields and editable prompt
+00:09 +90: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_test.dart: three tabs, eight optional AI fields and editable prompt
+00:09 +91: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_test.dart: three tabs, eight optional AI fields and editable prompt
+00:09 +92: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_test.dart: three tabs, eight optional AI fields and editable prompt
+00:10 +93: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:10 +94: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:10 +95: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:10 +96: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+dynamic_color: Dynamic color not detected on this device.
+00:11 +97: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +98: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +99: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +100: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +101: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +102: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +103: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +104: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +105: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +106: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +107: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +108: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +109: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: compression settings persist without rerender and all output paths use JPG metadata
+00:11 +110: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +111: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +112: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +113: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +114: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +115: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +116: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +117: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +118: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +119: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +120: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +121: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta4_test.dart: shortcut region hidden until prompt generated
+00:11 +122: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +123: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +124: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +125: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +126: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +127: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +128: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +129: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +130: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +131: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +132: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +133: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +134: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +135: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +136: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +137: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +138: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +139: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +140: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +141: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +142: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +143: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +144: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +145: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +146: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +147: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +148: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +149: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +150: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +151: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +152: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +153: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +154: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +155: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +156: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +157: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +158: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +159: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +160: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +161: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +162: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +163: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +164: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +165: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +166: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +167: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +168: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +169: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +170: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +171: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +172: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +173: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +174: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +175: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +176: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +177: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +178: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +179: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +180: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +181: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +182: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +183: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +184: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +185: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +186: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +187: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +188: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +189: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +190: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +191: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +192: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +193: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +194: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +195: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +196: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +197: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +198: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +199: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +200: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +201: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +202: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +203: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +204: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +205: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +206: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +207: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +208: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +209: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +210: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +211: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +212: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +213: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +214: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +215: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +216: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +217: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +218: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +219: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +220: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +221: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +222: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +223: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +224: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +225: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +226: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +227: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +228: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +229: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +230: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +231: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +232: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +233: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +234: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +235: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +236: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +237: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +238: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +239: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +240: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +241: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +242: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +243: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +244: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +245: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +246: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +247: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +248: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +249: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +250: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +251: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +252: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +253: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +254: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +255: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +256: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +257: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +258: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +259: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +260: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +261: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +262: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +263: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +264: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +265: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +266: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +267: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +268: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +269: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +270: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +271: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +272: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +273: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +274: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: overflow preview only hits within original container
+00:11 +275: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +276: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +277: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +278: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +279: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +280: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +281: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +282: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +283: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +284: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +285: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +286: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +287: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +288: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +289: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +290: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +291: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +292: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +293: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +294: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +295: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +296: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +297: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +298: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +299: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +300: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +301: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +302: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +303: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +304: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +305: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +306: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +307: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +308: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +309: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +310: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +311: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +312: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +313: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +314: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +315: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +316: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +317: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +318: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +319: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +320: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +321: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +322: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +323: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +324: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +325: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +326: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +327: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +328: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +329: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +330: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +331: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/export_revision_test.dart: seed row is transparent and compact input paint retains standard touch target
+00:11 +332: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +333: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +334: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +335: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +336: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +337: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +338: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +339: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +340: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +341: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +342: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +343: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +344: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +345: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +346: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +347: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +348: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +349: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +350: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +351: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +352: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +353: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +354: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +355: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +356: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +357: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +358: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +359: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +360: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +361: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +362: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +363: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +364: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +365: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +366: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +367: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +368: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +369: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +370: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +371: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +372: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +373: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +374: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +375: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:11 +376: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta2_test.dart: catalog expands lazily copies class and returns component
+00:12 +377: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v147_test.dart: empty bar has only new and saved bar offers manage
+00:12 +378: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:12 +379: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +380: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +381: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +382: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +383: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +384: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +385: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +386: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +387: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:13 +387: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/ui_revision_test.dart: ordinary labels, input/settings button styling, headings, and panel outlines
+dynamic_color: Dynamic color not detected on this device.
+00:14 +388: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/stable147_test.dart: prompt size changes only by button and generation scrolls to JSON anchor
+00:14 +389: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/disabled_fields_test.dart: nine disabled choices keep active checkboxes with gray struck labels
+00:14 +390: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/disabled_fields_test.dart: nine disabled choices keep active checkboxes with gray struck labels
+00:14 +391: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v145_test.dart: uncertain values remain numeric on apply; cover button threshold 99.0
+00:14 +392: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v145_test.dart: uncertain values remain numeric on apply; cover button threshold 99.0
+00:14 +393: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v145_test.dart: uncertain values remain numeric on apply; cover button threshold 99.0
+00:14 +394: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v145_test.dart: uncertain values remain numeric on apply; cover button threshold 99.0
+00:15 +395: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/disabled_fields_test.dart: input disables selected field and JSON paste strips it before applying
+00:15 +396: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v145_test.dart: uncertain values remain numeric on apply; cover button threshold 100.0
+00:15 +397: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta3_test.dart: catalog reports activity progress and keeps loading-time search
+00:15 +398: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta3_test.dart: catalog reports activity progress and keeps loading-time search
+00:16 +399: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/beta3_test.dart: catalog reports activity progress and keeps loading-time search
+00:16 +400: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:16 +401: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v132_test.dart: cover shape choices and parameters stay inside one dialog
+00:16 +402: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_revision_test.dart: 传统爬爬 touch outside drops text focus immediately
+00:16 +403: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_revision_test.dart: 传统爬爬 touch outside drops text focus immediately
+00:17 +404: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:17 +405: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:18 +406: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:18 +407: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:18 +408: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: seed fair button is visible only for fusion backgrounds
+00:18 +409: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_revision_test.dart: generated prompt retains JSON anchor and current action labels
+00:18 +410: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_revision_test.dart: generated prompt retains JSON anchor and current action labels
+00:18 +411: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_revision_test.dart: generated prompt retains JSON anchor and current action labels
+00:18 +412: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v144_revision_test.dart: generated prompt retains JSON anchor and current action labels
+00:18 +413: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +414: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +415: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +416: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +417: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +418: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +419: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +420: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:18 +421: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:19 +422: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:19 +423: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/seed_fair_visibility_test.dart: solid mode adds a colour picker directly after the background button
+00:19 +424: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v13_test.dart: static weights show subfamily names
+00:20 +425: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v13_test.dart: song JSON dialog roundtrip and paste replaces content
+00:20 +426: /workspace/scratch/58ee3e2335d7/project/MusicCardX/test/v13_test.dart: (tearDownAll)
+00:20 +426: All tests passed!

@@ -1,0 +1,23 @@
+name: mcx_background
+description: Portable MusicCardX background renderer.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.38.0'
+dependencies:
+  flutter:
+    sdk: flutter
+flutter:
+  plugin:
+    platforms:
+      android:
+        ffiPlugin: true
+      windows:
+        ffiPlugin: true
+      linux:
+        ffiPlugin: true
+      ios:
+        ffiPlugin: true
+      macos:
+        ffiPlugin: true

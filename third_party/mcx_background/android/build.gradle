@@ -1,0 +1,10 @@
+group 'com.iqonli.mcx_background'
+version '1.0'
+apply plugin: 'com.android.library'
+android {
+ namespace 'com.iqonli.mcx_background'
+ compileSdk 36
+ ndkVersion '28.2.13676358'
+ defaultConfig { minSdk 26; externalNativeBuild { cmake { arguments '-DANDROID_STL=c++_shared' } } }
+ externalNativeBuild { cmake { path '../CMakeLists.txt'; version '3.22.1' } }
+}
